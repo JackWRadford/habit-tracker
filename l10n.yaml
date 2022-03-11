@@ -1,0 +1,8 @@
+# This configures the localization tool
+
+# Input files locations
+arb-dir: lib/l10n
+# Provides the template (english)
+template-arb-file: app_en.arb
+# Generated localizations are placed here
+output-localization-file: app_localizations.dart
