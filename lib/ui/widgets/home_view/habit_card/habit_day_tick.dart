@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:habit_tracker/core/models/habit_day.dart';
 import 'package:habit_tracker/core/providers/home_model.dart';
+import 'package:habit_tracker/ui/shared/app_colours.dart';
 import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
 import 'package:provider/provider.dart';
 
@@ -24,12 +25,9 @@ class HabitDayTick extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: tinyPadding),
         child: SizedBox(
           width: 20,
-          child: Icon(
-            (habitDay.isDone)
-                ? CupertinoIcons.check_mark
-                : CupertinoIcons.circle,
-            size: 18,
-          ),
+          child: (habitDay.isDone)
+              ? const Icon(CupertinoIcons.check_mark, size: 18)
+              : const Icon(CupertinoIcons.circle, size: 12, color: myGrey),
         ),
       ),
     );

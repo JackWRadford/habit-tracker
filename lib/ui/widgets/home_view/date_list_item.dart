@@ -27,7 +27,7 @@ class DateListItem extends StatelessWidget {
           children: [
             Text(DateFormat('d').format(date),
                 style: textCaption1.copyWith(color: textColor)),
-            Text(DateFormat('EEEE').format(date).substring(0, 2),
+            Text(DateFormat('EEEE').format(date).substring(0, 2).toUpperCase(),
                 style: textCaption2.copyWith(color: textColor)),
           ],
         ),

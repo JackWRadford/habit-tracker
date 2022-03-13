@@ -13,7 +13,7 @@ class LastWeekList extends StatelessWidget {
     // Get the list of last week days dateTimes
     List<DateTime> days = Provider.of<HomeModel>(context).getLastWeek();
     return Padding(
-      padding: const EdgeInsets.only(right: mediumPadding),
+      padding: const EdgeInsets.only(right: mediumPadding + smallPadding),
       child: SizedBox(
         height: 30,
         child: ListView.builder(
