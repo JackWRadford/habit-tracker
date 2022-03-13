@@ -1,4 +1,5 @@
 import 'package:habit_tracker/core/models/habit.dart';
+import 'package:habit_tracker/core/models/habit_day.dart';
 import 'package:habit_tracker/core/models/settings.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -18,7 +19,7 @@ const String _colFri = 'fri';
 const String _colSat = 'sat';
 const String _colSun = 'sun';
 
-/// list of all [_tableHabits] columns
+/// List of all [_tableHabits] columns
 final List<String>? _habitsColumns = [
   _colId,
   _colTitle,
@@ -32,11 +33,19 @@ final List<String>? _habitsColumns = [
   _colSun,
 ];
 
+// Day table name and columns
+const String _tableDays = 'Days';
+const String _colHabitId = 'habitId';
+const String _colDate = 'date';
+
+/// List of all [_tableDays] columns
+final List<String>? _daysColumns = [_colId, _colHabitId, _colDate];
+
 // Settings table name and columns
 const String _tableSettings = 'Settings';
 const String _colIsDark = 'isDark';
 
-/// list of all [_tableSettings] columns
+/// List of all [_tableSettings] columns
 final List<String>? _settingsColumns = [_colId, _colIsDark];
 
 /// Map of db version to scripts for migration control
@@ -44,14 +53,14 @@ Map<int, String> _migrationScripts = {
   1: '''CREATE TABLE IF NOT EXISTS $_tableHabits(
           $_colId INTEGER NOT NULL,
           $_colTitle TEXT NOT NULL,
-          $_colColor TEXT NOT NULL,
-          $_colMon INT NOT NULL,
-          $_colTue INT NOT NULL,
-          $_colWed INT NOT NULL,
-          $_colThu INT NOT NULL,
-          $_colFri INT NOT NULL,
-          $_colSat INT NOT NULL,
-          $_colSun INT NOT NULL,
+          $_colColor INTEGER NOT NULL,
+          $_colMon INTEGER NOT NULL,
+          $_colTue INTEGER NOT NULL,
+          $_colWed INTEGER NOT NULL,
+          $_colThu INTEGER NOT NULL,
+          $_colFri INTEGER NOT NULL,
+          $_colSat INTEGER NOT NULL,
+          $_colSun INTEGER NOT NULL,
           PRIMARY KEY ($_colId)
           )''',
   2: '''CREATE TABLE IF NOT EXISTS $_tableSettings(
@@ -62,6 +71,13 @@ Map<int, String> _migrationScripts = {
   3: '''INSERT INTO $_tableSettings ($_colId, $_colIsDark) 
           VALUES(1,0)
           ''',
+  4: '''CREATE TABLE IF NOT EXISTS $_tableDays(
+          $_colId INTEGER NOT NULL,
+          $_colHabitId INTEGER NOT NULL,
+          $_colDate TEXT NOT NULL,
+          FOREIGN KEY($_colHabitId) REFERENCES $_tableHabits($_colId) ON DELETE CASCADE,
+          PRIMARY KEY ($_colId)
+          )''',
 };
 
 /// Database instance
@@ -146,9 +162,49 @@ class LocalDatabaseApi {
     // Convert maps to Habits
     for (Map<String, dynamic> map in maps) {
       Habit habit = Habit.fromMap(map);
+      // Get lastWeek bool values for given habit
+      habit.lastWeek = await _getLastWeek(habit.id!);
       habitsList.add(habit);
     }
     return habitsList;
+  }
+
+  /*---------------------Day functions---------------------------*/
+
+  /// Get habitDay list for if day exists for given habit id for last week
+  Future<List<HabitDay>> _getLastWeek(int habitId) async {
+    List<HabitDay> results = [];
+    // Get date without time
+    DateTime now = DateTime.now();
+    now = DateTime(now.year, now.month, now.day);
+
+    for (var i = 0; i < 7; i++) {
+      // Get row map if exists from Days table
+      List<Map<String, dynamic>> maps = await db.query(_tableDays,
+          columns: _daysColumns,
+          where: '$_colHabitId = ? AND $_colDate = ?',
+          whereArgs: [habitId, now.toIso8601String()]);
+
+      // Convert from map to habitDay if exists, else add false habitDay
+      results.add((maps.isNotEmpty)
+          ? HabitDay.fromMap(maps[0])
+          : HabitDay(habitId: habitId, date: now, isDone: false));
+
+      // Decrement now by one day
+      now = DateTime(now.year, now.month, now.day - 1);
+    }
+    return results;
+  }
+
+  /// Insert habitDay
+  Future<int> insertHabitDay(HabitDay habitDay) async {
+    return await db.insert(_tableDays, habitDay.toMap());
+  }
+
+  /// Delete habitDay for given id
+  Future<int> deleteHabitDay(int habitDayId) async {
+    return await db
+        .delete(_tableDays, where: '$_colId = ?', whereArgs: [habitDayId]);
   }
 
   /*---------------------Settings functions----------------------*/

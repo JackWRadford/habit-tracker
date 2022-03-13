@@ -5,6 +5,8 @@ import 'package:habit_tracker/core/locator.dart';
 import 'package:habit_tracker/core/providers/home_model.dart';
 import 'package:habit_tracker/core/services/database_api.dart';
 import 'package:habit_tracker/core/providers/theme_notifier.dart';
+import 'package:habit_tracker/ui/helper/route_view_args.dart';
+import 'package:habit_tracker/ui/views/add_edit_habit_view.dart';
 import 'package:habit_tracker/ui/views/home_view.dart';
 import 'package:provider/provider.dart';
 
@@ -78,6 +80,17 @@ class MyApp extends StatelessWidget {
                   builder: (context) {
                     return const HomeView();
                   },
+                );
+              case '/addEditHabitView':
+                final args = settings.arguments as AddEditHabitArgs;
+                return MaterialPageRoute(
+                  builder: (context) {
+                    return AddEditHabitView(
+                      habit: args.habit,
+                    );
+                  },
+                  // Animated from the bottom (no swipe to pop)
+                  fullscreenDialog: true,
                 );
               default:
                 return MaterialPageRoute(

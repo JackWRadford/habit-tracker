@@ -1,4 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/core/enums/view_state.dart';
+import 'package:habit_tracker/core/models/habit.dart';
+import 'package:habit_tracker/core/providers/home_model.dart';
+import 'package:habit_tracker/ui/widgets/home_view/add_habit_btn.dart';
+import 'package:habit_tracker/ui/widgets/home_view/habit_card/habit_list_item.dart';
+import 'package:habit_tracker/ui/widgets/home_view/last_week_list.dart';
+import 'package:habit_tracker/ui/widgets/home_view/settings_btn.dart';
+import 'package:habit_tracker/ui/widgets/home_view/welcome_text.dart';
+import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -19,16 +28,14 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.resumed:
-        // print("APP STATE RESUMED");
+        // Update welcome message and habits (notifyListeners)
+        Provider.of<HomeModel>(context, listen: false).setState(ViewState.idle);
         break;
       case AppLifecycleState.inactive:
-        // print("APP STATE INACTIVE");
         break;
       case AppLifecycleState.paused:
-        // print("APP STATE PAUSED");
         break;
       case AppLifecycleState.detached:
-        // print("APP STATE DETACHED");
         break;
       default:
     }
@@ -38,7 +45,38 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: const SettingsBtn(),
+        title: const WelcomeText(),
+        actions: const [
+          AddHabitBtn(),
+        ],
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          // Last week days row
+          const LastWeekList(),
+          // List of habits
+          SingleChildScrollView(
+            child: FutureBuilder<List<Habit>>(
+                future: Provider.of<HomeModel>(context).getAllHabits(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      reverse: true,
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        return HabitListItem(habit: snapshot.data![index]);
+                      },
+                    );
+                  }
+                  return Container();
+                }),
+          ),
+        ],
+      ),
     );
   }
 }

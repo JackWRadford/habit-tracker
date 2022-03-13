@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/core/models/habit_day.dart';
 import 'package:habit_tracker/ui/shared/app_colours.dart';
 
 class Habit {
@@ -14,16 +15,19 @@ class Habit {
   bool sat = false;
   bool sun = false;
 
+  /// List of last 7 habitDays
+  List<HabitDay> lastWeek = [];
+
   Habit({
-    required this.title,
-    required this.color,
-    required this.mon,
-    required this.tue,
-    required this.wed,
-    required this.thu,
-    required this.fri,
-    required this.sat,
-    required this.sun,
+    this.title = '',
+    this.color = myRed,
+    this.mon = false,
+    this.tue = false,
+    this.wed = false,
+    this.thu = false,
+    this.fri = false,
+    this.sat = false,
+    this.sun = false,
   });
 
   /// Convert from Habit to Map

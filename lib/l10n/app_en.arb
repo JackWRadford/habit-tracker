@@ -1,5 +1,20 @@
 {
     "goodMorning":"Good morning",
     "goodAfternoon":"Good afternoon",
-    "goodEvening":"Good evening"
+    "goodEvening":"Good evening",
+
+    "createHabit":"Create Habit",
+    "editHabit":"Edit Habit",
+    "done":"Done",
+    "save":"Save",
+    "cancel":"Cancel",
+    "delete":"Delete",
+    
+    "confirmTitle":"Confirm Delete",
+    "confirmDesc":"This habit and all it's data will be lost forever!",
+
+    "title":"Title",
+    "color":"Colour",
+    "days":"Days"
+    
 }

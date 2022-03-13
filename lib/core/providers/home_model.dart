@@ -1,5 +1,6 @@
 import 'package:habit_tracker/core/locator.dart';
 import 'package:habit_tracker/core/models/habit.dart';
+import 'package:habit_tracker/core/models/habit_day.dart';
 import 'package:habit_tracker/core/providers/base_model.dart';
 import 'package:habit_tracker/core/services/database_api.dart';
 
@@ -24,9 +25,45 @@ class HomeModel extends BaseModel {
     notifyListeners();
   }
 
+  /// Update given habit day (delete row if settings as not done)
+  Future<void> updateHabitDay(HabitDay habitDay) async {
+    if (habitDay.isDone) {
+      await _api.insertHabitDay(habitDay);
+    } else {
+      await _api.deleteHabitDay(habitDay.id!);
+    }
+    notifyListeners();
+  }
+
   /// Delete habit from given id
   Future<void> deleteHabit(int id) async {
     await _api.deleteHabit(id);
     notifyListeners();
+  }
+
+  /// Return integer corresponding to message required
+  int getWelcome() {
+    int h = DateTime.now().hour;
+    if ((h > 4) && (h < 12)) {
+      return 0;
+    } else if ((h >= 12) && (h < 17)) {
+      return 1;
+    } else {
+      return 2;
+    }
+  }
+
+  /// Return dates of last 7 days
+  List<DateTime> getLastWeek() {
+    // Get date without time
+    DateTime now = DateTime.now();
+    now = DateTime(now.year, now.month, now.day);
+    List<DateTime> result = [];
+    for (var i = 0; i < 7; i++) {
+      result.add(now);
+      // Decrement now by one day
+      now = DateTime(now.year, now.month, now.day - 1);
+    }
+    return result;
   }
 }
