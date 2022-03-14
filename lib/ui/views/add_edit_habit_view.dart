@@ -92,7 +92,7 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: smallPadding),
+          padding: const EdgeInsets.symmetric(horizontal: mediumPadding),
           child: Column(
             children: [
               // Title text input section

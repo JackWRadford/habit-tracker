@@ -58,7 +58,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
         children: [
           // Last week days row
           const LastWeekList(),
-          UIHelper.verticalSpaceSmall(),
+          UIHelper.verticalSpaceVerySmall(),
           // List of habits
           Expanded(
             child: SingleChildScrollView(
