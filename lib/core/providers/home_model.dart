@@ -8,6 +8,8 @@ class HomeModel extends BaseModel {
   /// Local database API
   final LocalDatabaseApi _api = locator<LocalDatabaseApi>();
 
+  /// Analytics service
+
   /// Get all habits
   Future<List<Habit>> getAllHabits() async {
     return await _api.getAllHabits();

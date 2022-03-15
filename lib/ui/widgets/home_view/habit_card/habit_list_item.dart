@@ -31,8 +31,17 @@ class _HabitListItemState extends State<HabitListItem> {
               // Percentage progress and day indicators
               Row(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  // Last 30 days completed percentage
+                  Padding(
+                    padding: const EdgeInsets.only(left: smallPadding),
+                    child: Text(
+                      '${(widget.habit.last30 * 100).toInt()}%',
+                      style: textCaption1,
+                    ),
+                  ),
+                  // Last week completed or not
                   SizedBox(
                     height: 30,
                     child: ListView.builder(

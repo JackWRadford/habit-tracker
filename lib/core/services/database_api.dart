@@ -164,6 +164,17 @@ class LocalDatabaseApi {
       Habit habit = Habit.fromMap(map);
       // Get lastWeek bool values for given habit
       habit.lastWeek = await _getLastWeek(habit.id!);
+
+      // Number of required days in last 30 (based on weekdays selected) TODO
+      int requiredDays = 30;
+
+      // Calculate date of earliest habitDay required
+      DateTime date = DateTime.now();
+      date = DateTime(date.year, date.month, date.day - requiredDays);
+
+      // Get last30 double value
+      int count = await habitDaysCountForHabit(habit.id!, date);
+      habit.last30 = (count / requiredDays);
       habitsList.add(habit);
     }
     return habitsList;
@@ -171,7 +182,15 @@ class LocalDatabaseApi {
 
   /*---------------------Day functions---------------------------*/
 
-  /// Get habitDay list for if day exists for given habit id for last week
+  /// Get number of HabitDays for given [habitId] since date [date]
+  Future<int> habitDaysCountForHabit(int habitId, DateTime date) async {
+    int? count = Sqflite.firstIntValue(await db.rawQuery(
+        'SELECT COUNT(*) FROM $_tableDays WHERE $_colHabitId = ? AND date($_colDate) > date(?)',
+        [habitId, date.toIso8601String()]));
+    return (count != null) ? count : 0;
+  }
+
+  /// Get habitDay list for if day exists for given [habitId] for last week
   Future<List<HabitDay>> _getLastWeek(int habitId) async {
     List<HabitDay> results = [];
     // Get date without time
@@ -196,12 +215,12 @@ class LocalDatabaseApi {
     return results;
   }
 
-  /// Insert habitDay
+  /// Insert [habitDay]
   Future<int> insertHabitDay(HabitDay habitDay) async {
     return await db.insert(_tableDays, habitDay.toMap());
   }
 
-  /// Delete habitDay for given id
+  /// Delete habitDay for given [habitDayId]
   Future<int> deleteHabitDay(int habitDayId) async {
     return await db
         .delete(_tableDays, where: '$_colId = ?', whereArgs: [habitDayId]);

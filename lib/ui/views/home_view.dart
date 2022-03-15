@@ -7,7 +7,6 @@ import 'package:habit_tracker/ui/widgets/home_view/add_habit_btn.dart';
 import 'package:habit_tracker/ui/widgets/home_view/habit_card/habit_list_item.dart';
 import 'package:habit_tracker/ui/widgets/home_view/last_week_list.dart';
 import 'package:habit_tracker/ui/widgets/home_view/settings_btn.dart';
-import 'package:habit_tracker/ui/widgets/home_view/welcome_text.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
@@ -48,7 +47,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: const SettingsBtn(),
-        title: const WelcomeText(),
+        // title: const WelcomeText(),
         actions: const [
           AddHabitBtn(),
         ],
@@ -58,7 +57,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
         children: [
           // Last week days row
           const LastWeekList(),
-          UIHelper.verticalSpaceVerySmall(),
+          UIHelper.verticalSpaceSmall(),
           // List of habits
           Expanded(
             child: SingleChildScrollView(

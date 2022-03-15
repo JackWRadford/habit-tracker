@@ -18,6 +18,9 @@ class Habit {
   /// List of last 7 habitDays
   List<HabitDay> lastWeek = [];
 
+  /// Double for last 30 days percentage completed
+  double last30 = 0;
+
   Habit({
     this.title = '',
     this.color = myRed,

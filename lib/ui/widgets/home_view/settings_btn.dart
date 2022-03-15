@@ -8,7 +8,7 @@ class SettingsBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {},
-      icon: const Icon(CupertinoIcons.gear),
+      icon: const Icon(CupertinoIcons.slider_horizontal_3),
     );
   }
 }
