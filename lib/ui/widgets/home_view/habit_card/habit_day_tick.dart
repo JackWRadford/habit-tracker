@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:habit_tracker/core/models/habit.dart';
 import 'package:habit_tracker/core/models/habit_day.dart';
 import 'package:habit_tracker/core/providers/home_model.dart';
-import 'package:habit_tracker/ui/shared/app_colours.dart';
+import 'package:habit_tracker/core/providers/theme_notifier.dart';
 import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
 import 'package:provider/provider.dart';
 
@@ -9,8 +10,13 @@ import 'package:provider/provider.dart';
 ///
 /// Can be pressed to toggle done or not
 class HabitDayTick extends StatelessWidget {
+  final Habit habit;
   final HabitDay habitDay;
-  const HabitDayTick({Key? key, required this.habitDay}) : super(key: key);
+  const HabitDayTick({
+    Key? key,
+    required this.habit,
+    required this.habitDay,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +32,22 @@ class HabitDayTick extends StatelessWidget {
         child: SizedBox(
           width: 20,
           child: (habitDay.isDone)
-              ? const Icon(CupertinoIcons.check_mark, size: 18)
-              : const Icon(CupertinoIcons.circle, size: 12, color: myGrey),
+              ? Icon(CupertinoIcons.circle_fill, size: 15, color: habit.color)
+              : (_habitIncludesDay(habit, habitDay))
+                  ? Icon(CupertinoIcons.circle_fill,
+                      size: 15, color: habit.color.withOpacity(0.2))
+                  : Icon(CupertinoIcons.circle_fill,
+                      size: 15,
+                      color: Provider.of<ThemeNotifier>(context).getBGColor()),
         ),
       ),
     );
   }
+}
+
+/// Check if [habit] is due on [habitDay]
+bool _habitIncludesDay(Habit habit, HabitDay habitDay) {
+  // Monday = 1, Tuesday = 2...
+  int weekday = habitDay.date.weekday;
+  return habit.requiredDays[weekday - 1];
 }

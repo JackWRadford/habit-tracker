@@ -8,7 +8,13 @@ class HomeModel extends BaseModel {
   /// Local database API
   final LocalDatabaseApi _api = locator<LocalDatabaseApi>();
 
-  /// Analytics service
+  /// Currently selected habit (used to update habitView when habit is edited)
+  Habit selectedHabit = Habit();
+
+  /// Set selected habit
+  void setSelectedHabit(Habit habit) {
+    selectedHabit = habit;
+  }
 
   /// Get all habits
   Future<List<Habit>> getAllHabits() async {
@@ -23,6 +29,9 @@ class HomeModel extends BaseModel {
 
   /// Update given habit [h]
   Future<void> updateHabit(Habit h) async {
+    // Update selectedHabit to reflect changes in habitView
+    selectedHabit = h;
+    // Update habit in database
     await _api.updateHabit(h);
     notifyListeners();
   }

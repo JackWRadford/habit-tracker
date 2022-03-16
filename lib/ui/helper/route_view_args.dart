@@ -10,3 +10,14 @@ class AddEditHabitArgs {
     this.habit,
   });
 }
+
+/// Args for habit view
+///
+/// Takes a [habit]
+class HabitArgs {
+  final Habit habit;
+
+  HabitArgs({
+    required this.habit,
+  });
+}

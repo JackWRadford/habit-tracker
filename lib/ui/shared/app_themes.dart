@@ -48,6 +48,18 @@ final darkTheme = ThemeData(
   snackBarTheme: const SnackBarThemeData(
     backgroundColor: Colors.white,
   ),
+  chipTheme: ChipThemeData(
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(smallRadius))),
+    backgroundColor: darkBG,
+    disabledColor: darkBG,
+    selectedColor: darkBG,
+    secondarySelectedColor: darkCard,
+    padding: const EdgeInsets.all(tinyPadding),
+    labelStyle: textSubhead.copyWith(color: myGrey),
+    secondaryLabelStyle: textSubhead.copyWith(color: Colors.white),
+    brightness: Brightness.light,
+  ),
 );
 
 final lightTheme = ThemeData(
@@ -91,5 +103,17 @@ final lightTheme = ThemeData(
   ),
   snackBarTheme: const SnackBarThemeData(
     backgroundColor: Colors.black,
+  ),
+  chipTheme: ChipThemeData(
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(smallRadius))),
+    backgroundColor: lightBG,
+    disabledColor: lightBG,
+    selectedColor: lightBG,
+    secondarySelectedColor: lightCard,
+    padding: const EdgeInsets.all(tinyPadding),
+    labelStyle: textSubhead.copyWith(color: myGrey),
+    secondaryLabelStyle: textSubhead.copyWith(color: Colors.black),
+    brightness: Brightness.light,
   ),
 );

@@ -7,8 +7,14 @@ class SettingsBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {},
-      icon: const Icon(CupertinoIcons.slider_horizontal_3),
+      onPressed: () {
+        // Navigate to settings view
+        Navigator.pushNamed(
+          context,
+          '/settingsView',
+        );
+      },
+      icon: const Icon(CupertinoIcons.line_horizontal_3),
     );
   }
 }

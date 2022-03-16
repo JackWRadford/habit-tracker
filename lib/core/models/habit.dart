@@ -7,13 +7,7 @@ class Habit {
   int? id;
   String title = '';
   Color color = myRed;
-  bool mon = false;
-  bool tue = false;
-  bool wed = false;
-  bool thu = false;
-  bool fri = false;
-  bool sat = false;
-  bool sun = false;
+  List<bool> requiredDays = [false, false, false, false, false, false, false];
 
   /// List of last 7 habitDays
   List<HabitDay> lastWeek = [];
@@ -24,13 +18,7 @@ class Habit {
   Habit({
     this.title = '',
     this.color = myRed,
-    this.mon = false,
-    this.tue = false,
-    this.wed = false,
-    this.thu = false,
-    this.fri = false,
-    this.sat = false,
-    this.sun = false,
+    this.requiredDays = const [false, false, false, false, false, false, false],
   });
 
   /// Convert from Habit to Map
@@ -38,13 +26,13 @@ class Habit {
     return {
       'title': title,
       'color': _colorToInt(color),
-      'mon': (mon) ? 1 : 0,
-      'tue': (tue) ? 1 : 0,
-      'wed': (wed) ? 1 : 0,
-      'thu': (thu) ? 1 : 0,
-      'fri': (fri) ? 1 : 0,
-      'sat': (sat) ? 1 : 0,
-      'sun': (sun) ? 1 : 0,
+      'mon': (requiredDays[0]) ? 1 : 0,
+      'tue': (requiredDays[1]) ? 1 : 0,
+      'wed': (requiredDays[2]) ? 1 : 0,
+      'thu': (requiredDays[3]) ? 1 : 0,
+      'fri': (requiredDays[4]) ? 1 : 0,
+      'sat': (requiredDays[5]) ? 1 : 0,
+      'sun': (requiredDays[6]) ? 1 : 0,
     };
   }
 
@@ -53,13 +41,13 @@ class Habit {
     id = map['id'];
     title = map['title'];
     color = _intToColor(map['color']);
-    mon = (map['mon'] == 1);
-    tue = (map['tue'] == 1);
-    wed = (map['wed'] == 1);
-    thu = (map['thu'] == 1);
-    fri = (map['fri'] == 1);
-    sat = (map['sat'] == 1);
-    sun = (map['sun'] == 1);
+    requiredDays[0] = (map['mon'] == 1);
+    requiredDays[1] = (map['tue'] == 1);
+    requiredDays[2] = (map['wed'] == 1);
+    requiredDays[3] = (map['thu'] == 1);
+    requiredDays[4] = (map['fri'] == 1);
+    requiredDays[5] = (map['sat'] == 1);
+    requiredDays[6] = (map['sun'] == 1);
   }
 
   /// Convert from color [c] to int

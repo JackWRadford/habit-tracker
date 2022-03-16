@@ -71,31 +71,31 @@ class SectionInput extends StatelessWidget {
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide.none,
             borderRadius: BorderRadius.all(
-              Radius.circular(mediumRadius),
+              Radius.circular(smallRadius),
             ),
           ),
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide.none,
             borderRadius: BorderRadius.all(
-              Radius.circular(mediumRadius),
+              Radius.circular(smallRadius),
             ),
           ),
           focusedErrorBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.red, width: 2),
             borderRadius: BorderRadius.all(
-              Radius.circular(mediumRadius),
+              Radius.circular(smallRadius),
             ),
           ),
           errorBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.red, width: 2),
             borderRadius: BorderRadius.all(
-              Radius.circular(mediumRadius),
+              Radius.circular(smallRadius),
             ),
           ),
           border: const OutlineInputBorder(
             borderSide: BorderSide.none,
             borderRadius: BorderRadius.all(
-              Radius.circular(mediumRadius),
+              Radius.circular(smallRadius),
             ),
           ),
           filled: true,

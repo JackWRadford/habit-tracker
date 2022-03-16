@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:habit_tracker/core/locator.dart';
+import 'package:habit_tracker/core/providers/add_edit_habit_model.dart';
 import 'package:habit_tracker/core/providers/home_model.dart';
 import 'package:habit_tracker/core/services/database_api.dart';
 import 'package:habit_tracker/core/providers/theme_notifier.dart';
 import 'package:habit_tracker/ui/helper/route_view_args.dart';
 import 'package:habit_tracker/ui/views/add_edit_habit_view.dart';
+import 'package:habit_tracker/ui/views/habit_view.dart';
 import 'package:habit_tracker/ui/views/home_view.dart';
+import 'package:habit_tracker/ui/views/settings_view.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -44,6 +47,10 @@ class MyApp extends StatelessWidget {
         // Home model
         ChangeNotifierProvider<HomeModel>(
           create: (_) => HomeModel(),
+        ),
+        // Add Edit Habit model
+        ChangeNotifierProvider<AddEditHabitModel>(
+          create: (_) => AddEditHabitModel(),
         ),
       ],
       child: GestureDetector(
@@ -89,7 +96,22 @@ class MyApp extends StatelessWidget {
                       habit: args.habit,
                     );
                   },
-                  // Animated from the bottom (no swipe to pop)
+                  fullscreenDialog: true,
+                );
+              case '/habitView':
+                final args = settings.arguments as HabitArgs;
+                return MaterialPageRoute(
+                  builder: (context) {
+                    return HabitView(
+                      habit: args.habit,
+                    );
+                  },
+                );
+              case '/settingsView':
+                return MaterialPageRoute(
+                  builder: (context) {
+                    return const SettingsView();
+                  },
                   fullscreenDialog: true,
                 );
               default:

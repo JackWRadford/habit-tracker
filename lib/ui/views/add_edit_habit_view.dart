@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:habit_tracker/core/enums/settings_pos.dart';
 import 'package:habit_tracker/core/models/habit.dart';
+import 'package:habit_tracker/core/providers/add_edit_habit_model.dart';
 import 'package:habit_tracker/core/providers/home_model.dart';
 import 'package:habit_tracker/ui/shared/app_colours.dart';
 import 'package:habit_tracker/ui/shared/app_text_styles.dart';
 import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
+import 'package:habit_tracker/ui/shared/app_ui_spacing.dart';
+import 'package:habit_tracker/ui/widgets/add_edit_habit_view/color_select.dart';
+import 'package:habit_tracker/ui/widgets/add_edit_habit_view/days_select.dart';
+import 'package:habit_tracker/ui/widgets/add_edit_habit_view/delete_btn.dart';
 import 'package:habit_tracker/ui/widgets/shared/section_input.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +27,6 @@ class AddEditHabitView extends StatefulWidget {
 
 class _AddEditHabitViewState extends State<AddEditHabitView> {
   final TextEditingController _controllerTitle = TextEditingController();
-  Color _selectedColor = myRed;
 
   @override
   void initState() {
@@ -31,15 +35,19 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
       // Title
       _controllerTitle.text = widget.habit!.title;
       // Color
-      _selectedColor = widget.habit!.color;
+      Provider.of<AddEditHabitModel>(context, listen: false).selectedColor =
+          widget.habit!.color;
       // Days
-
+      Provider.of<AddEditHabitModel>(context, listen: false).selectedDays =
+          widget.habit!.requiredDays;
     }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    AddEditHabitModel _addEditHabitModel =
+        Provider.of<AddEditHabitModel>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -50,11 +58,12 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
             // Cancel button
             TextButton(
               onPressed: () {
+                _addEditHabitModel.resetSelected();
                 Navigator.of(context).pop();
               },
               child: Text(
                 AppLocalizations.of(context)!.cancel,
-                style: textFootnote.copyWith(color: myGrey),
+                style: textCaption1.copyWith(color: myGrey),
               ),
             ),
             // View title
@@ -70,21 +79,27 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
                 if (widget.habit != null) {
                   // Update habit
                   widget.habit!.title = _controllerTitle.text;
+                  widget.habit!.color = _addEditHabitModel.selectedColor;
+                  widget.habit!.requiredDays = _addEditHabitModel.selectedDays;
                   Provider.of<HomeModel>(context, listen: false)
                       .updateHabit(widget.habit!);
                 } else {
                   // Create new habit
-                  Habit newHabit = Habit(title: _controllerTitle.text);
+                  Habit newHabit = Habit(
+                      title: _controllerTitle.text,
+                      color: _addEditHabitModel.selectedColor,
+                      requiredDays: _addEditHabitModel.selectedDays);
                   Provider.of<HomeModel>(context, listen: false)
                       .addNewHabit(newHabit);
                 }
+                _addEditHabitModel.resetSelected();
                 Navigator.of(context).pop();
               },
               child: Text(
                 (widget.habit != null)
                     ? AppLocalizations.of(context)!.save
                     : AppLocalizations.of(context)!.done,
-                style: textFootnote.copyWith(color: myGrey),
+                style: textCaption1.copyWith(color: myGrey),
               ),
             ),
           ],
@@ -94,7 +109,9 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: mediumPadding),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              UIHelper.verticalSpaceSmall(),
               // Title text input section
               SectionInput(
                 pos: SettingsPos.solo,
@@ -102,12 +119,22 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
                 maxLength: null,
                 maxLines: 1,
                 suffix: null,
-                hintText: 'Habit title',
+                hintText: AppLocalizations.of(context)!.title,
                 textInputType: TextInputType.text,
                 validator: (value) {},
                 onSaved: (value) {},
                 textAlign: TextAlign.left,
               ),
+              UIHelper.verticalSpaceMedium(),
+              // Colour select
+              const ColorSelect(),
+              UIHelper.verticalSpaceMedium(),
+              const Divider(color: myGrey, height: 2),
+              UIHelper.verticalSpaceMedium(),
+              // Day select
+              (widget.habit == null)
+                  ? const DaysSelect()
+                  : DeleteBtn(habit: widget.habit!),
             ],
           ),
         ),

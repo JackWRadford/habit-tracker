@@ -1,5 +1,15 @@
 import 'package:flutter/cupertino.dart';
 
+/// Colours list for colour select
+const List<Color> myColors = [
+  myRed,
+  myOrange,
+  myYellow,
+  myGreen,
+  myBlue,
+  myIndigo
+];
+
 /// Indigo
 const Color myIndigo = CupertinoColors.systemIndigo;
 
@@ -25,7 +35,7 @@ const Color myGrey = CupertinoColors.systemGrey2;
 const Color darkBG = Color(0xff1c1c1e);
 
 /// Dark card background colour
-const Color darkCard = Color(0xff2C2C2E);
+const Color darkCard = Color(0xff242426);
 
 /// Light app background colour
 const Color lightBG = Color(0xfff2f2f7);
