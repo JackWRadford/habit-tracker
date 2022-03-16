@@ -165,12 +165,17 @@ class LocalDatabaseApi {
       // Get lastWeek bool values for given habit
       habit.lastWeek = await _getLastWeek(habit.id!);
 
-      // Number of required days in last 30 (based on weekdays selected) TODO
-      int requiredDays = 30;
+      // Number of required days in last 5 weeks (based on weekdays selected)
+      int requiredDays = 0;
+      int numOfWeeks = 5;
+      for (bool rDay in habit.requiredDays) {
+        if (rDay) requiredDays++;
+      }
+      requiredDays = requiredDays * numOfWeeks;
 
-      // Calculate date of earliest habitDay required
+      // Calculate date of habitDay 5 weeks ago
       DateTime date = DateTime.now();
-      date = DateTime(date.year, date.month, date.day - requiredDays);
+      date = DateTime(date.year, date.month, date.day - (7 * numOfWeeks));
 
       // Get last30 double value
       int count = await habitDaysCountForHabit(habit.id!, date);
