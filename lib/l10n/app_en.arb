@@ -15,5 +15,7 @@
     "repeatOn":"Repeat on days :",
     "cannotBeChanged":"Cannot be changed later!",
     "settings":"Settings",
-    "darkMode":"Dark mode"
+    "darkMode":"Dark mode",
+    "timesDone":"Times done",
+    "timesMissed":"Times missed"
 }

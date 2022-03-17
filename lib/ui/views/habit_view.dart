@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/core/models/habit.dart';
 import 'package:habit_tracker/core/providers/home_model.dart';
-import 'package:habit_tracker/core/providers/theme_notifier.dart';
 import 'package:habit_tracker/ui/helper/route_view_args.dart';
 import 'package:habit_tracker/ui/shared/app_text_styles.dart';
+import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
+import 'package:habit_tracker/ui/widgets/habit_view/general_stats_section.dart';
 import 'package:provider/provider.dart';
 
 class HabitView extends StatefulWidget {
@@ -30,7 +31,7 @@ class _HabitViewState extends State<HabitView> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Provider.of<ThemeNotifier>(context).getCardColor(),
+        // backgroundColor: Provider.of<ThemeNotifier>(context).getCardColor(),
         centerTitle: true,
         title: Text(h.title, style: textBody),
         actions: [
@@ -46,27 +47,19 @@ class _HabitViewState extends State<HabitView> {
             },
           ),
         ],
-        bottom: PreferredSize(
-          preferredSize: const Size(double.infinity, 8),
-          child: LinearProgressIndicator(
-            value: widget.habit.last30,
-            backgroundColor: widget.habit.color.withOpacity(0.2),
-            valueColor: AlwaysStoppedAnimation(h.color),
-            minHeight: 8,
-          ),
-        ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // General habit info
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: smallPadding),
+          child: Column(
+            children: [
+              // Stats (total done, times missed, % last month, % last year)
+              GeneralStatsSection(habit: h),
+              // Total % chart (last month, year)
 
-            // Stats (total done, times missed, % last month, % last year)
-
-            // Total % chart (last month, year)
-
-            // Last year heatmap
-          ],
+              // Last year heatmap
+            ],
+          ),
         ),
       ),
     );

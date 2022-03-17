@@ -195,6 +195,26 @@ class LocalDatabaseApi {
     return (count != null) ? count : 0;
   }
 
+  /// Get number of HabitDays for given [habitId]
+  Future<int> allHabitDaysCountForHabit(int habitId) async {
+    int? count = Sqflite.firstIntValue(await db.rawQuery(
+        'SELECT COUNT(*) FROM $_tableDays WHERE $_colHabitId = ?', [habitId]));
+    return (count != null) ? count : 0;
+  }
+
+  /// Get oldest date of HabitDay for given [habitId]
+  Future<DateTime?> oldestDateOfHabitDay(int habitId) async {
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+        'SELECT $_colDate FROM $_tableDays WHERE $_colHabitId = ? ORDER BY $_colDate ASC',
+        [habitId]);
+    if (maps.isNotEmpty) {
+      if (maps[0].isNotEmpty) {
+        return DateTime.parse(maps[0].values.toList().first);
+      }
+    }
+    return null;
+  }
+
   /// Get habitDay list for if day exists for given [habitId] for last week
   Future<List<HabitDay>> _getLastWeek(int habitId) async {
     List<HabitDay> results = [];

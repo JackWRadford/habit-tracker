@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:habit_tracker/core/locator.dart';
 import 'package:habit_tracker/core/providers/add_edit_habit_model.dart';
+import 'package:habit_tracker/core/providers/analytics_model.dart';
 import 'package:habit_tracker/core/providers/home_model.dart';
 import 'package:habit_tracker/core/services/database_api.dart';
 import 'package:habit_tracker/core/providers/theme_notifier.dart';
@@ -51,6 +52,10 @@ class MyApp extends StatelessWidget {
         // Add Edit Habit model
         ChangeNotifierProvider<AddEditHabitModel>(
           create: (_) => AddEditHabitModel(),
+        ),
+        // Analytics model
+        ChangeNotifierProvider<AnalyticsModel>(
+          create: (_) => AnalyticsModel(),
         ),
       ],
       child: GestureDetector(
