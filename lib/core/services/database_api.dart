@@ -187,6 +187,18 @@ class LocalDatabaseApi {
 
   /*---------------------Day functions---------------------------*/
 
+  /// Get if there is a HabitDay for the given [habitId] and [date]
+  Future<bool> isDayForHabit(int habitId, DateTime date) async {
+    // List of habitDay maps
+    List<Map<String, dynamic>> maps = await db.query(
+      _tableDays,
+      columns: _daysColumns,
+      where: '$_colHabitId = ? AND $_colDate = ?',
+      whereArgs: [habitId, date.toIso8601String()],
+    );
+    return (maps.isNotEmpty);
+  }
+
   /// Get number of HabitDays for given [habitId] since date [date]
   Future<int> habitDaysCountForHabit(int habitId, DateTime date) async {
     int? count = Sqflite.firstIntValue(await db.rawQuery(

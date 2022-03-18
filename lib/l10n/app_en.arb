@@ -17,5 +17,7 @@
     "settings":"Settings",
     "darkMode":"Dark mode",
     "timesDone":"Times done",
-    "timesMissed":"Times missed"
+    "timesMissed":"Times missed",
+    "currentStreak":"Current streak",
+    "bestStreak":"Best streak"
 }

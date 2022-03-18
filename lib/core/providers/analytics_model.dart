@@ -43,6 +43,28 @@ class AnalyticsModel extends BaseModel {
     return count;
   }
 
-  /// Calculate % done for last [n] days
+  /// Calculate current streak for given [habit]
+  ///
+  /// Streak is only broken if a required day is missed
+  /// HabitDays on non-required days still increment the streak
+  /// Max streak of 99
+  Future<int> getCurrentStreak(Habit habit) async {
+    DateTime now = DateTime.now();
+    now = DateTime(now.year, now.month, now.day);
+    int streak = 0;
+    for (var i = 0; i < 100; i++) {
+      DateTime day = DateTime(now.year, now.month, now.day - i);
+      if (await _api.isDayForHabit(habit.id!, day)) {
+        streak++;
+      } else {
+        if ((habit.requiredDays[day.weekday - 1]) && i > 0) break;
+      }
+    }
+    return streak;
+  }
 
+  /// Get highest streak
+  Future<int> getHighestStreak(Habit habit) async {
+    return 0;
+  }
 }

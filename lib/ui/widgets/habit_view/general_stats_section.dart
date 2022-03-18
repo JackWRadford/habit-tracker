@@ -17,24 +17,46 @@ class GeneralStatsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     AnalyticsModel _aModel =
         Provider.of<AnalyticsModel>(context, listen: false);
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Column(
       children: [
-        _StatSection(
-          future: _aModel.getTimesDone(habit),
-          label: AppLocalizations.of(context)!.timesDone,
-          iconData: CupertinoIcons.check_mark,
-          color: habit.color,
-          isPercentage: false,
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _StatSection(
+              future: _aModel.getTimesDone(habit),
+              label: AppLocalizations.of(context)!.timesDone,
+              iconData: CupertinoIcons.check_mark,
+              color: habit.color,
+            ),
+            UIHelper.horizontalSpaceSmall(),
+            _StatSection(
+              future: _aModel.getTimesMissed(habit),
+              label: AppLocalizations.of(context)!.timesMissed,
+              iconData: CupertinoIcons.xmark,
+              color: habit.color,
+            ),
+          ],
         ),
-        UIHelper.horizontalSpaceSmall(),
-        _StatSection(
-          future: _aModel.getTimesMissed(habit),
-          label: AppLocalizations.of(context)!.timesMissed,
-          iconData: CupertinoIcons.xmark,
-          color: habit.color,
-          isPercentage: false,
+        UIHelper.verticalSpaceSmall(),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _StatSection(
+              future: _aModel.getCurrentStreak(habit),
+              label: AppLocalizations.of(context)!.currentStreak,
+              iconData: CupertinoIcons.flame,
+              color: habit.color,
+            ),
+            UIHelper.horizontalSpaceSmall(),
+            _StatSection(
+              future: _aModel.getHighestStreak(habit),
+              label: AppLocalizations.of(context)!.bestStreak,
+              iconData: Icons.emoji_events_outlined,
+              color: habit.color,
+            ),
+          ],
         ),
       ],
     );
@@ -47,15 +69,13 @@ class _StatSection extends StatelessWidget {
   final String label;
   final IconData iconData;
   final Color color;
-  final bool isPercentage;
-  const _StatSection(
-      {Key? key,
-      required this.future,
-      required this.label,
-      required this.iconData,
-      required this.color,
-      required this.isPercentage})
-      : super(key: key);
+  const _StatSection({
+    Key? key,
+    required this.future,
+    required this.label,
+    required this.iconData,
+    required this.color,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -91,11 +111,7 @@ class _StatSection extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Value
-                        Text(
-                            (!isPercentage)
-                                ? snapshot.data.toString()
-                                : '${((snapshot.data as double) * 100).toInt()}%',
-                            style: textBody),
+                        Text(snapshot.data.toString(), style: textBody),
                         // Label
                         Text(label,
                             style: textCaption1.copyWith(color: myGrey)),
