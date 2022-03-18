@@ -18,6 +18,7 @@ const String _colThu = 'thu';
 const String _colFri = 'fri';
 const String _colSat = 'sat';
 const String _colSun = 'sun';
+const String _colBestStreak = 'bestStreak';
 
 /// List of all [_tableHabits] columns
 final List<String>? _habitsColumns = [
@@ -31,6 +32,7 @@ final List<String>? _habitsColumns = [
   _colFri,
   _colSat,
   _colSun,
+  _colBestStreak,
 ];
 
 // Day table name and columns
@@ -61,6 +63,7 @@ Map<int, String> _migrationScripts = {
           $_colFri INTEGER NOT NULL,
           $_colSat INTEGER NOT NULL,
           $_colSun INTEGER NOT NULL,
+          $_colBestStreak INTEGER NOT NULL,
           PRIMARY KEY ($_colId)
           )''',
   2: '''CREATE TABLE IF NOT EXISTS $_tableSettings(
@@ -149,6 +152,28 @@ class LocalDatabaseApi {
   /// Delete all habits
   Future<int> deleteAllHabits() async {
     return await db.delete(_tableHabits);
+  }
+
+  /// Get habit for id
+  Future<Habit?> getHabitForId(int habitId) async {
+    List<Habit> habitsList = [];
+    // List of habit maps
+    List<Map<String, dynamic>> maps = await db.query(
+      _tableHabits,
+      columns: _habitsColumns,
+      where: '$_colId = ?',
+      whereArgs: [habitId],
+    );
+    // Convert maps to Habits
+    for (Map<String, dynamic> map in maps) {
+      Habit habit = Habit.fromMap(map);
+      habitsList.add(habit);
+    }
+    if (habitsList.isNotEmpty) {
+      return habitsList[0];
+    } else {
+      return null;
+    }
   }
 
   /// Get all habits

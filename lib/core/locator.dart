@@ -2,7 +2,6 @@ import 'package:get_it/get_it.dart';
 import 'package:habit_tracker/core/providers/add_edit_habit_model.dart';
 import 'package:habit_tracker/core/providers/analytics_model.dart';
 import 'package:habit_tracker/core/providers/home_model.dart';
-import 'package:habit_tracker/core/services/analytics_service.dart';
 import 'package:habit_tracker/core/services/database_api.dart';
 import 'package:habit_tracker/core/providers/theme_notifier.dart';
 
@@ -13,7 +12,6 @@ GetIt locator = GetIt.instance;
 void initLocator() {
   // Services
   locator.registerLazySingleton(() => LocalDatabaseApi());
-  locator.registerLazySingleton(() => AnalyticsService());
 
   // View models
   locator.registerFactory(() => ThemeNotifier());

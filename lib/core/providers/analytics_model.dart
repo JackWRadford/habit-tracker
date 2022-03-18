@@ -52,19 +52,32 @@ class AnalyticsModel extends BaseModel {
     DateTime now = DateTime.now();
     now = DateTime(now.year, now.month, now.day);
     int streak = 0;
-    for (var i = 0; i < 100; i++) {
+    int i = 0;
+    while (true) {
       DateTime day = DateTime(now.year, now.month, now.day - i);
       if (await _api.isDayForHabit(habit.id!, day)) {
         streak++;
       } else {
         if ((habit.requiredDays[day.weekday - 1]) && i > 0) break;
       }
+      i++;
+    }
+    // Check if better than best streak. Update habit bestStreak, if so
+    if (streak > habit.bestStreak) {
+      habit.bestStreak = streak;
+      await _api.updateHabit(habit);
+      notifyListeners(); // Update bestStreak section
     }
     return streak;
   }
 
-  /// Get highest streak
-  Future<int> getHighestStreak(Habit habit) async {
-    return 0;
+  /// Get best streak for given habit
+  Future<int> getBestStreak(Habit habit) async {
+    Habit? h = await _api.getHabitForId(habit.id!);
+    if (h != null) {
+      return h.bestStreak;
+    } else {
+      return 0;
+    }
   }
 }

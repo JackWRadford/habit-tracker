@@ -8,6 +8,7 @@ class Habit {
   String title = '';
   Color color = myRed;
   List<bool> requiredDays = [false, false, false, false, false, false, false];
+  int bestStreak = 0;
 
   /// List of last 7 habitDays
   List<HabitDay> lastWeek = [];
@@ -33,6 +34,7 @@ class Habit {
       'fri': (requiredDays[4]) ? 1 : 0,
       'sat': (requiredDays[5]) ? 1 : 0,
       'sun': (requiredDays[6]) ? 1 : 0,
+      'bestStreak': bestStreak,
     };
   }
 
@@ -48,6 +50,7 @@ class Habit {
     requiredDays[4] = (map['fri'] == 1);
     requiredDays[5] = (map['sat'] == 1);
     requiredDays[6] = (map['sun'] == 1);
+    bestStreak = map['bestStreak'];
   }
 
   /// Convert from color [c] to int
