@@ -1,3 +1,4 @@
+import 'package:habit_tracker/core/helper/helper_functions.dart';
 import 'package:habit_tracker/core/models/habit.dart';
 import 'package:habit_tracker/core/models/habit_day.dart';
 import 'package:habit_tracker/core/models/settings.dart';
@@ -203,7 +204,7 @@ class LocalDatabaseApi {
       date = DateTime(date.year, date.month, date.day - (7 * numOfWeeks));
 
       // Get last30 double value
-      int count = await habitDaysCountForHabit(habit.id!, date);
+      int count = await habitDaysCountForHabit(habit.id!, date, getToday());
       habit.last30 = (count / requiredDays);
       habitsList.add(habit);
     }
@@ -224,11 +225,12 @@ class LocalDatabaseApi {
     return (maps.isNotEmpty);
   }
 
-  /// Get number of HabitDays for given [habitId] since date [date]
-  Future<int> habitDaysCountForHabit(int habitId, DateTime date) async {
+  /// Get number of HabitDays for given [habitId] between dates [from] & [to]
+  Future<int> habitDaysCountForHabit(
+      int habitId, DateTime from, DateTime to) async {
     int? count = Sqflite.firstIntValue(await db.rawQuery(
-        'SELECT COUNT(*) FROM $_tableDays WHERE $_colHabitId = ? AND date($_colDate) > date(?)',
-        [habitId, date.toIso8601String()]));
+        'SELECT COUNT(*) FROM $_tableDays WHERE $_colHabitId = ? AND date($_colDate) BETWEEN date(?) AND date(?)',
+        [habitId, from.toIso8601String(), to.toIso8601String()]));
     return (count != null) ? count : 0;
   }
 

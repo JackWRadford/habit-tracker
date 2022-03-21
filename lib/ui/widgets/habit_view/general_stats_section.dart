@@ -85,6 +85,7 @@ class _StatSection extends StatelessWidget {
         builder: (context, snapshot) {
           return Expanded(
             child: Card(
+              margin: const EdgeInsets.all(0),
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(smallRadius))),
               child: Padding(

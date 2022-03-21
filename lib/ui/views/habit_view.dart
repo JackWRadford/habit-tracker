@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker/core/models/habit.dart';
 import 'package:habit_tracker/core/providers/home_model.dart';
 import 'package:habit_tracker/ui/helper/route_view_args.dart';
+import 'package:habit_tracker/ui/shared/app_colours.dart';
 import 'package:habit_tracker/ui/shared/app_text_styles.dart';
 import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
+import 'package:habit_tracker/ui/shared/app_ui_spacing.dart';
+import 'package:habit_tracker/ui/widgets/habit_view/chart_section.dart';
 import 'package:habit_tracker/ui/widgets/habit_view/general_stats_section.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +39,7 @@ class _HabitViewState extends State<HabitView> {
         title: Text(h.title, style: textBody),
         actions: [
           IconButton(
-            icon: const Icon(CupertinoIcons.ellipsis_vertical),
+            icon: const Icon(CupertinoIcons.ellipsis_vertical, color: myGrey),
             onPressed: () {
               // Open add edit view and pass habit
               Navigator.pushNamed(
@@ -55,8 +58,9 @@ class _HabitViewState extends State<HabitView> {
             children: [
               // Stats (total done, times missed, % last month, % last year)
               GeneralStatsSection(habit: h),
+              UIHelper.verticalSpaceSmall(),
               // Total % chart (last month, year)
-
+              ChartSection(habit: h),
               // Last year heatmap
             ],
           ),

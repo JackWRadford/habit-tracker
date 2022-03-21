@@ -19,5 +19,6 @@
     "timesDone":"Times done",
     "timesMissed":"Times missed",
     "currentStreak":"Current streak",
-    "bestStreak":"Best streak"
+    "bestStreak":"Best streak",
+    "progress":"Last year progress"
 }
