@@ -258,8 +258,7 @@ class LocalDatabaseApi {
   Future<List<HabitDay>> _getLastWeek(int habitId) async {
     List<HabitDay> results = [];
     // Get date without time
-    DateTime now = DateTime.now();
-    now = DateTime(now.year, now.month, now.day);
+    DateTime now = getToday();
 
     for (var i = 0; i < 7; i++) {
       // Get row map if exists from Days table
@@ -275,6 +274,19 @@ class LocalDatabaseApi {
 
       // Decrement now by one day
       now = DateTime(now.year, now.month, now.day - 1);
+    }
+    return results;
+  }
+
+  /// get habitDay list for last year for given [habitId] (to this date last year)
+  Future<List<HabitDay>> getDaysFrom(int habitId, DateTime f) async {
+    List<HabitDay> results = [];
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+        'SELECT * FROM $_tableDays WHERE $_colHabitId = ? AND date($_colDate) > date(?) ORDER BY $_colDate ASC',
+        [habitId, f.toIso8601String()]);
+    for (Map<String, dynamic> map in maps) {
+      HabitDay hd = HabitDay.fromMap(map);
+      results.add(hd);
     }
     return results;
   }

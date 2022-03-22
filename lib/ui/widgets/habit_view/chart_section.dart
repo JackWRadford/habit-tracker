@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:habit_tracker/core/models/habit.dart';
 import 'package:habit_tracker/core/providers/analytics_model.dart';
+import 'package:habit_tracker/core/providers/theme_notifier.dart';
 import 'package:habit_tracker/ui/shared/app_colours.dart';
 import 'package:habit_tracker/ui/shared/app_text_styles.dart';
 import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
@@ -45,7 +46,7 @@ class ChartSection extends StatelessWidget {
                   future:
                       Provider.of<AnalyticsModel>(context).getChartData(habit),
                   builder: (context, snapshot) {
-                    return LineChart(mainData(snapshot.data),
+                    return LineChart(mainData(snapshot.data, context),
                         swapAnimationDuration: Duration.zero);
                   }),
             ),
@@ -55,7 +56,7 @@ class ChartSection extends StatelessWidget {
     );
   }
 
-  LineChartData mainData(List<dynamic>? chartData) {
+  LineChartData mainData(List<dynamic>? chartData, BuildContext ctx) {
     return LineChartData(
       lineTouchData: LineTouchData(enabled: false),
       gridData: FlGridData(
@@ -124,10 +125,18 @@ class ChartSection extends StatelessWidget {
           spots: (chartData != null) ? chartData[0] : null,
           isCurved: false,
           colors: [habit.color],
-          barWidth: 2,
+          barWidth: 3,
           isStrokeCapRound: false,
           dotData: FlDotData(
-            show: false,
+            show: true,
+            getDotPainter: (p0, p1, p2, p3) {
+              return FlDotCirclePainter(
+                  radius: 3,
+                  color: habit.color,
+                  strokeWidth: 2,
+                  strokeColor: Provider.of<ThemeNotifier>(ctx, listen: false)
+                      .getCardColor());
+            },
           ),
           belowBarData: BarAreaData(
             show: true,

@@ -20,5 +20,7 @@
     "timesMissed":"Times missed",
     "currentStreak":"Current streak",
     "bestStreak":"Best streak",
-    "progress":"Last year progress"
+    "progress":"Last year progress",
+    "heatmap":"Heatmap",
+    "required":"Required"
 }

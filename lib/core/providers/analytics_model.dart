@@ -1,7 +1,10 @@
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
 import 'package:habit_tracker/core/helper/helper_functions.dart';
 import 'package:habit_tracker/core/locator.dart';
 import 'package:habit_tracker/core/models/habit.dart';
+import 'package:habit_tracker/core/models/habit_day.dart';
+import 'package:habit_tracker/core/models/heat_col.dart';
 import 'package:habit_tracker/core/providers/base_model.dart';
 import 'package:habit_tracker/core/services/database_api.dart';
 import 'package:intl/intl.dart';
@@ -132,5 +135,60 @@ class AnalyticsModel extends BaseModel {
       );
     }
     return [spots, xAxis];
+  }
+
+  /// Calculate list of HeatCol data for given habit [h]
+  Future<List<HeatColData>> getHeatData(Habit h) async {
+    List<HeatColData> heatData = [];
+    DateTime now = getToday();
+    // From this date (exclusive)
+    DateTime from = DateTime(now.year - 1, now.month, now.day);
+    List<HabitDay> days = await _api.getDaysFrom(h.id!, from);
+    int currentMonth = days[0].date.month;
+    bool newMonth = false;
+    String monthStr = '';
+    List<Color> currentCol = [];
+
+    while (now.isAfter(from)) {
+      HabitDay day = HabitDay(habitId: h.id!, date: now, isDone: false);
+      // Check if days list includes day interator (now)
+      if (days.map((d) => d.date).contains(now)) day.isDone = true;
+      // Check if new month
+      if (day.date.month != currentMonth) {
+        monthStr =
+            DateFormat('LLL').format(DateTime(now.year, currentMonth, 1));
+        currentMonth = day.date.month;
+        newMonth = true;
+      }
+      if ((day.date.weekday == 7) && (currentCol.isNotEmpty)) {
+        // Add week to list and start new week
+        heatData.add(
+          HeatColData(
+            label: (newMonth) ? monthStr : '',
+            colors: currentCol,
+          ),
+        );
+        newMonth = false;
+        currentCol = [];
+        currentCol.add(_getDayColor(h, day));
+      } else {
+        currentCol.add(_getDayColor(h, day));
+      }
+      now = DateTime(now.year, now.month, now.day - 1);
+    }
+    return heatData;
+  }
+
+  /// Get color for heatmap day for given [habit] and [day]
+  ///
+  /// Used in [getHeatData] above
+  Color _getDayColor(Habit h, HabitDay day) {
+    if (day.isDone) {
+      return h.color;
+    } else if (h.requiredDays[day.date.weekday - 1]) {
+      return h.color.withOpacity(0.2);
+    } else {
+      return Colors.transparent; // Shows color depending on theme in ui
+    }
   }
 }

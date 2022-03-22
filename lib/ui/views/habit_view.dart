@@ -9,6 +9,7 @@ import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
 import 'package:habit_tracker/ui/shared/app_ui_spacing.dart';
 import 'package:habit_tracker/ui/widgets/habit_view/chart_section.dart';
 import 'package:habit_tracker/ui/widgets/habit_view/general_stats_section.dart';
+import 'package:habit_tracker/ui/widgets/habit_view/heatmap/heat_map_section.dart';
 import 'package:provider/provider.dart';
 
 class HabitView extends StatefulWidget {
@@ -61,7 +62,10 @@ class _HabitViewState extends State<HabitView> {
               UIHelper.verticalSpaceSmall(),
               // Total % chart (last month, year)
               ChartSection(habit: h),
+              UIHelper.verticalSpaceSmall(),
               // Last year heatmap
+              HeatMapSection(h: h),
+              UIHelper.verticalSpaceLarge(),
             ],
           ),
         ),
