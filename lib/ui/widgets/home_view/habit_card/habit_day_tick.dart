@@ -32,12 +32,12 @@ class HabitDayTick extends StatelessWidget {
         child: SizedBox(
           width: 20,
           child: (habitDay.isDone)
-              ? Icon(CupertinoIcons.circle_fill, size: 15, color: habit.color)
+              ? Icon(CupertinoIcons.checkmark_alt, size: 20, color: habit.color)
               : (_habitIncludesDay(habit, habitDay))
                   ? Icon(CupertinoIcons.circle_fill,
-                      size: 15, color: habit.color.withOpacity(0.2))
+                      size: 12, color: habit.color.withOpacity(0.2))
                   : Icon(CupertinoIcons.circle_fill,
-                      size: 15,
+                      size: 12,
                       color: Provider.of<ThemeNotifier>(context).getBGColor()),
         ),
       ),

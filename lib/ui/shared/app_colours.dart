@@ -18,7 +18,6 @@ const Color myBlue = CupertinoColors.systemBlue;
 
 /// Green
 const Color myGreen = CupertinoColors.systemGreen;
-// Color(0xff7bf1a8);
 
 /// Yellow
 const Color myYellow = CupertinoColors.systemYellow;

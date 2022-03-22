@@ -54,15 +54,15 @@ class _HabitViewState extends State<HabitView> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: smallPadding),
+          padding: const EdgeInsets.symmetric(horizontal: mediumPadding),
           child: Column(
             children: [
               // Stats (total done, times missed, % last month, % last year)
               GeneralStatsSection(habit: h),
-              UIHelper.verticalSpaceSmall(),
+              UIHelper.verticalSpaceMedium(),
               // Total % chart (last month, year)
               ChartSection(habit: h),
-              UIHelper.verticalSpaceSmall(),
+              UIHelper.verticalSpaceMedium(),
               // Last year heatmap
               HeatMapSection(h: h),
               UIHelper.verticalSpaceLarge(),

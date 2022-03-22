@@ -46,7 +46,7 @@ class GeneralStatsSection extends StatelessWidget {
             _StatSection(
               future: _aModel.getTimesDone(habit),
               label: AppLocalizations.of(context)!.timesDone,
-              iconData: CupertinoIcons.check_mark,
+              iconData: CupertinoIcons.checkmark_alt,
               color: habit.color,
             ),
             UIHelper.horizontalSpaceSmall(),

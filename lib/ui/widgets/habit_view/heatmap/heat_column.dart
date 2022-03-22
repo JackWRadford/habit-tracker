@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/ui/shared/app_colours.dart';
 import 'package:habit_tracker/ui/shared/app_text_styles.dart';
-import 'package:habit_tracker/ui/shared/app_ui_spacing.dart';
 import 'package:habit_tracker/ui/widgets/habit_view/heatmap/heat_box.dart';
 
 class HeatColumn extends StatelessWidget {

@@ -93,17 +93,21 @@ class AnalyticsModel extends BaseModel {
   ///
   /// Returns lists of List<FlSpot> and List<String>
   Future<List<dynamic>> getChartData(Habit h) async {
+    /// Calculate y-axis
+    Future<double> _getY(Habit h, DateTime f, DateTime t) async {
+      double value = (((await _api.habitDaysCountForHabit(h.id!, f, t)) /
+              _getTimesRequiedBetween(h, f, t)) *
+          100);
+      if (value > 100) value = 100;
+      return value;
+    }
+
     List<FlSpot> spots = [];
     List<String> xAxis = [];
     // Current month % (1st to today)
     DateTime today = getToday();
     DateTime first = DateTime(today.year, today.month, 1); // 1st of month
-    spots.add(FlSpot(
-        11,
-        (((await _api.habitDaysCountForHabit(
-                    h.id!, DateTime(today.year, today.month, 1), today)) /
-                _getTimesRequiedBetween(h, first, today)) *
-            100)));
+    spots.add(FlSpot(11, await _getY(h, first, today)));
     xAxis.add(
       DateFormat('LLL').format(first),
     );
@@ -111,11 +115,7 @@ class AnalyticsModel extends BaseModel {
     for (var i = 1; i < 12; i++) {
       DateTime f = DateTime(today.year, today.month - i, 1); // 1st of month
       DateTime t = DateTime(f.year, f.month + 1, 0); // last of month
-      spots.add(FlSpot(
-          (11 - i).toDouble(),
-          (((await _api.habitDaysCountForHabit(h.id!, f, t)) /
-                  _getTimesRequiedBetween(h, f, t)) *
-              100)));
+      spots.add(FlSpot((11 - i).toDouble(), await _getY(h, f, t)));
       xAxis.add(
         DateFormat('LLL').format(f),
       );
