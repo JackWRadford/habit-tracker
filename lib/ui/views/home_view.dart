@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:habit_tracker/core/enums/view_state.dart';
 import 'package:habit_tracker/core/models/habit.dart';
 import 'package:habit_tracker/core/providers/home_model.dart';
+import 'package:habit_tracker/ui/shared/app_colours.dart';
+import 'package:habit_tracker/ui/shared/app_text_styles.dart';
+import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
 import 'package:habit_tracker/ui/shared/app_ui_spacing.dart';
 import 'package:habit_tracker/ui/widgets/home_view/add_habit_btn.dart';
 import 'package:habit_tracker/ui/widgets/home_view/habit_card/habit_list_item.dart';
@@ -68,17 +72,22 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
                     future: Provider.of<HomeModel>(context).getAllHabits(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        return ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          reverse: true,
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            return HabitListItem(habit: snapshot.data![index]);
-                          },
-                        );
+                        if (snapshot.data!.isNotEmpty) {
+                          return ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            reverse: true,
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (context, index) {
+                              return HabitListItem(
+                                  habit: snapshot.data![index]);
+                            },
+                          );
+                        } else {
+                          _noHabits();
+                        }
                       }
-                      return Container();
+                      return _noHabits();
                     },
                   ),
                   UIHelper.verticalSpaceLarge(),
@@ -90,6 +99,16 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
           ),
         ],
       ),
+    );
+  }
+
+  /// Widget showing no habits yet
+  Widget _noHabits() {
+    return Padding(
+      padding: const EdgeInsets.only(top: veryLargePadding),
+      child: Center(
+          child: Text(AppLocalizations.of(context)!.noHabits,
+              style: textBody.copyWith(color: myGrey))),
     );
   }
 }
