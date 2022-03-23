@@ -11,22 +11,22 @@ const List<Color> myColors = [
 ];
 
 /// Indigo
-const Color myIndigo = CupertinoColors.systemIndigo;
+const Color myIndigo = Color(0xff6a4c93);
 
 /// Blue
-const Color myBlue = CupertinoColors.systemBlue;
+const Color myBlue = Color(0xff1982c4);
 
 /// Green
-const Color myGreen = CupertinoColors.systemGreen;
+const Color myGreen = Color(0xff8ac926);
 
 /// Yellow
-const Color myYellow = CupertinoColors.systemYellow;
+const Color myYellow = Color(0xffffca3a);
 
 /// Orange
-const Color myOrange = CupertinoColors.systemOrange;
+const Color myOrange = Color(0xfff3722c);
 
 /// Red
-const Color myRed = CupertinoColors.systemRed;
+const Color myRed = Color(0xffff595e);
 
 /// Text grey colour (taken from iOS13 systemGray)
 const Color myGrey = CupertinoColors.systemGrey2;
