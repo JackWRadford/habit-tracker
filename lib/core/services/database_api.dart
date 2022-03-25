@@ -47,9 +47,10 @@ final List<String>? _daysColumns = [_colId, _colHabitId, _colDate];
 // Settings table name and columns
 const String _tableSettings = 'Settings';
 const String _colIsDark = 'isDark';
+const String _colIsPro = 'isPro';
 
 /// List of all [_tableSettings] columns
-final List<String>? _settingsColumns = [_colId, _colIsDark];
+final List<String>? _settingsColumns = [_colId, _colIsDark, _colIsPro];
 
 /// Map of db version to scripts for migration control
 Map<int, String> _migrationScripts = {
@@ -70,10 +71,11 @@ Map<int, String> _migrationScripts = {
   2: '''CREATE TABLE IF NOT EXISTS $_tableSettings(
           $_colId INTEGER NOT NULL,
           $_colIsDark INTEGER NOT NULL,
+          $_colIsPro INTEGER NOT NULL,
           PRIMARY KEY ($_colId)
           )''',
-  3: '''INSERT INTO $_tableSettings ($_colId, $_colIsDark) 
-          VALUES(1,0)
+  3: '''INSERT INTO $_tableSettings ($_colId, $_colIsDark, $_colIsPro) 
+          VALUES(1,0,0)
           ''',
   4: '''CREATE TABLE IF NOT EXISTS $_tableDays(
           $_colId INTEGER NOT NULL,

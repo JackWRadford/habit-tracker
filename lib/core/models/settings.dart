@@ -1,6 +1,7 @@
 class Settings {
   int? id;
   bool isDark = false;
+  bool isPro = false;
 
   Settings();
 
@@ -8,6 +9,7 @@ class Settings {
   Map<String, dynamic> toMap() {
     return {
       'isDark': (isDark) ? 1 : 0,
+      'isPro': (isPro) ? 1 : 0,
     };
   }
 
@@ -15,5 +17,6 @@ class Settings {
   Settings.fromMap(Map<String, dynamic> map) {
     id = map['id'];
     isDark = (map['isDark'] == 1);
+    isPro = (map['isPro'] == 1);
   }
 }
