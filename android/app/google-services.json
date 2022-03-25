@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1089258364303",
+    "project_id": "habit-track-app",
+    "storage_bucket": "habit-track-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089258364303:android:4f886c82ecacf688793ffa",
+        "android_client_info": {
+          "package_name": "com.jackwradford.habittracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1089258364303-16eioiqglcb6ma3r82jbu1as35aavmb5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYQu_PMNCsBj7GVllLiN0IoKPqWA_foms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1089258364303-16eioiqglcb6ma3r82jbu1as35aavmb5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1089258364303-l3j0ohf7mk8rjl51i621p8uj3162hjhn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jackwradford.habittracker"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
