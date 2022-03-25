@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/core/locator.dart';
-import 'package:habit_tracker/core/services/database_api.dart';
 import 'package:habit_tracker/core/services/settings_service.dart';
 import 'package:habit_tracker/ui/shared/app_colours.dart';
 import 'package:habit_tracker/ui/shared/app_themes.dart';
 
 /// Notify app of selected theme
 class ThemeNotifier with ChangeNotifier {
-  /// Local database API
-  final LocalDatabaseApi _api = locator<LocalDatabaseApi>();
-
   /// Settings service
   final SettingsService _settingsService = locator<SettingsService>();
 
