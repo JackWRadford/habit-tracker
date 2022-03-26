@@ -30,5 +30,12 @@
     "thu":"Thu",
     "fri":"Fri",
     "sat":"Sat",
-    "sun":"Sun"
+    "sun":"Sun",
+    "getPro":"Get Trait Pro!",
+    "preferences":"Preferences",
+    "app":"App",
+    "contactDeveloper":"Contact developer",
+    "rate":"Rate",
+    "terms":"Terms and Conditions",
+    "privacyPolicy":"Privacy Policy"
 }

@@ -40,4 +40,21 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <queries>
+      <!-- To open https URLs -->
+      <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="https" />
+      </intent>
+      <!-- To open http URLs -->
+      <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="http" />
+      </intent>
+      <!-- To email -->
+      <intent>
+        <action android:name="android.intent.action.SEND" />
+        <data android:mimeType="*/*" />
+      </intent>
+    </queries>
 </manifest>
