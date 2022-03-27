@@ -63,7 +63,7 @@ class ProView extends StatelessWidget {
                     ProFeatureCard(
                       title: AppLocalizations.of(context)!.supportMe,
                       description: AppLocalizations.of(context)!.supportMeDesc,
-                      iconData: CupertinoIcons.heart,
+                      iconData: CupertinoIcons.heart_circle_fill,
                     ),
                     UIHelper.verticalSpaceSmall(),
                     //get all future updates
@@ -71,7 +71,7 @@ class ProView extends StatelessWidget {
                       title: AppLocalizations.of(context)!.futureUpdates,
                       description:
                           AppLocalizations.of(context)!.futureUpdatesDesc,
-                      iconData: CupertinoIcons.rocket,
+                      iconData: CupertinoIcons.rocket_fill,
                     ),
                     UIHelper.verticalSpaceLarge(),
                     UIHelper.verticalSpaceLarge(),
