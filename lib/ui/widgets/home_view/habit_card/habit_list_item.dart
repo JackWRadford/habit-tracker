@@ -31,10 +31,10 @@ class _HabitListItemState extends State<HabitListItem> {
         padding: const EdgeInsets.fromLTRB(
             mediumPadding, 0, mediumPadding, mediumPadding),
         child: SizedBox(
-          height: 102,
+          height: 96,
           child: Card(
             shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(mediumRadius))),
+                borderRadius: BorderRadius.all(Radius.circular(smallRadius))),
             margin: const EdgeInsets.all(0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,13 +98,13 @@ class _HabitListItemState extends State<HabitListItem> {
                 // Progress indicator
                 ClipRRect(
                   borderRadius: const BorderRadius.vertical(
-                    bottom: Radius.circular(mediumRadius),
+                    bottom: Radius.circular(smallRadius),
                   ),
                   child: LinearProgressIndicator(
                     value: widget.habit.last30,
                     backgroundColor: widget.habit.color.withOpacity(0.2),
                     valueColor: AlwaysStoppedAnimation(widget.habit.color),
-                    minHeight: 16,
+                    minHeight: 8,
                   ),
                 ),
               ],
