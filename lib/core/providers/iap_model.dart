@@ -8,8 +8,7 @@ import 'package:habit_tracker/core/providers/base_model.dart';
 import 'package:habit_tracker/core/services/settings_service.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
-///Provider to deal with purchasing and restoring a purchase
-///(from Fluidify)
+/// Provider to deal with purchasing and restoring a purchase
 class InAppPurchaseModel extends BaseModel {
   /// Settings service
   final SettingsService _settingsService = locator<SettingsService>();
