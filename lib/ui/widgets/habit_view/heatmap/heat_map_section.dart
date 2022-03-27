@@ -20,7 +20,7 @@ class HeatMapSection extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.all(0),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(smallRadius),
+        borderRadius: BorderRadius.circular(mediumRadius),
       ),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(

@@ -35,7 +35,13 @@ class SettingsView extends StatelessWidget {
               // Pro info button
               (!isPro)
                   ? SectionButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // Navigate to pro view
+                        Navigator.pushNamed(
+                          context,
+                          '/proView',
+                        );
+                      },
                       buttonLabel: AppLocalizations.of(context)!.getPro,
                       icon: const Icon(CupertinoIcons.bolt_fill),
                       hasArrow: true,

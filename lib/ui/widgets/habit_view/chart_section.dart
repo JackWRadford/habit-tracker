@@ -20,7 +20,7 @@ class ChartSection extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.all(0),
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(smallRadius))),
+          borderRadius: BorderRadius.all(Radius.circular(mediumRadius))),
       child: Padding(
         padding: const EdgeInsets.all(mediumPadding),
         child: Column(

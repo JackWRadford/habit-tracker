@@ -13,6 +13,7 @@ import 'package:habit_tracker/ui/helper/route_view_args.dart';
 import 'package:habit_tracker/ui/views/add_edit_habit_view.dart';
 import 'package:habit_tracker/ui/views/habit_view.dart';
 import 'package:habit_tracker/ui/views/home_view.dart';
+import 'package:habit_tracker/ui/views/pro_view.dart';
 import 'package:habit_tracker/ui/views/settings_view.dart';
 import 'package:provider/provider.dart';
 
@@ -126,6 +127,13 @@ class MyApp extends StatelessWidget {
                 return MaterialPageRoute(
                   builder: (context) {
                     return const SettingsView();
+                  },
+                  fullscreenDialog: true,
+                );
+              case '/proView':
+                return MaterialPageRoute(
+                  builder: (context) {
+                    return const ProView();
                   },
                   fullscreenDialog: true,
                 );

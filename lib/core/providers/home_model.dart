@@ -21,6 +21,11 @@ class HomeModel extends BaseModel {
     return await _api.getAllHabits();
   }
 
+  /// Get habits count
+  Future<int> getHabitsCount() async {
+    return await _api.getHabitsCount();
+  }
+
   /// Add new habit
   Future<void> addNewHabit(Habit h) async {
     await _api.insertHabit(h);

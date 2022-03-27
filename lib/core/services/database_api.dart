@@ -213,6 +213,13 @@ class LocalDatabaseApi {
     return habitsList;
   }
 
+  /// Get number of habits
+  Future<int> getHabitsCount() async {
+    int? count = Sqflite.firstIntValue(
+        await db.rawQuery('SELECT COUNT(*) FROM $_tableHabits'));
+    return (count != null) ? count : 0;
+  }
+
   /*---------------------Day functions---------------------------*/
 
   /// Get if there is a HabitDay for the given [habitId] and [date]

@@ -17,48 +17,57 @@ class GeneralStatsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     AnalyticsModel _aModel =
         Provider.of<AnalyticsModel>(context, listen: false);
-    return Column(
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Card(
+      margin: const EdgeInsets.all(0),
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(mediumRadius))),
+      child: Padding(
+        padding: const EdgeInsets.all(mediumPadding),
+        child: Column(
           children: [
-            _StatSection(
-              future: _aModel.getCurrentStreak(habit),
-              label: AppLocalizations.of(context)!.currentStreak,
-              iconData: CupertinoIcons.flame,
-              color: habit.color,
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _StatSection(
+                  future: _aModel.getCurrentStreak(habit),
+                  label: AppLocalizations.of(context)!.currentStreak,
+                  iconData: CupertinoIcons.flame,
+                  color: habit.color,
+                ),
+                UIHelper.horizontalSpaceSmall(),
+                _StatSection(
+                  future:
+                      Provider.of<AnalyticsModel>(context).getBestStreak(habit),
+                  label: AppLocalizations.of(context)!.bestStreak,
+                  iconData: Icons.emoji_events_outlined,
+                  color: habit.color,
+                ),
+              ],
             ),
-            UIHelper.horizontalSpaceSmall(),
-            _StatSection(
-              future: Provider.of<AnalyticsModel>(context).getBestStreak(habit),
-              label: AppLocalizations.of(context)!.bestStreak,
-              iconData: Icons.emoji_events_outlined,
-              color: habit.color,
+            UIHelper.verticalSpaceMedium(),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _StatSection(
+                  future: _aModel.getTimesDone(habit),
+                  label: AppLocalizations.of(context)!.timesDone,
+                  iconData: CupertinoIcons.checkmark_alt,
+                  color: habit.color,
+                ),
+                UIHelper.horizontalSpaceSmall(),
+                _StatSection(
+                  future: _aModel.getTimesMissed(habit),
+                  label: AppLocalizations.of(context)!.timesMissed,
+                  iconData: CupertinoIcons.xmark,
+                  color: habit.color,
+                ),
+              ],
             ),
           ],
         ),
-        UIHelper.verticalSpaceSmall(),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _StatSection(
-              future: _aModel.getTimesDone(habit),
-              label: AppLocalizations.of(context)!.timesDone,
-              iconData: CupertinoIcons.checkmark_alt,
-              color: habit.color,
-            ),
-            UIHelper.horizontalSpaceSmall(),
-            _StatSection(
-              future: _aModel.getTimesMissed(habit),
-              label: AppLocalizations.of(context)!.timesMissed,
-              iconData: CupertinoIcons.xmark,
-              color: habit.color,
-            ),
-          ],
-        ),
-      ],
+      ),
     );
   }
 }
@@ -84,43 +93,34 @@ class _StatSection extends StatelessWidget {
         future: future,
         builder: (context, snapshot) {
           return Expanded(
-            child: Card(
-              margin: const EdgeInsets.all(0),
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(smallRadius))),
-              child: Padding(
-                padding: const EdgeInsets.all(smallPadding),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(smallPadding),
+                  decoration: BoxDecoration(
+                    color: color.withOpacity(0.1),
+                    borderRadius:
+                        const BorderRadius.all(Radius.circular(smallRadius)),
+                  ),
+                  child: Icon(
+                    iconData,
+                    color: color,
+                    size: 20,
+                  ),
+                ),
+                UIHelper.horizontalSpaceSmall(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.all(smallPadding),
-                      decoration: BoxDecoration(
-                        color: color.withOpacity(0.1),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(tinyRadius)),
-                      ),
-                      child: Icon(
-                        iconData,
-                        color: color,
-                        size: 20,
-                      ),
-                    ),
-                    UIHelper.horizontalSpaceSmall(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Value
-                        Text(snapshot.data.toString(), style: textBody),
-                        // Label
-                        Text(label,
-                            style: textCaption1.copyWith(color: myGrey)),
-                      ],
-                    ),
+                    // Value
+                    Text(snapshot.data.toString(), style: textBody),
+                    // Label
+                    Text(label, style: textCaption1.copyWith(color: myGrey)),
                   ],
                 ),
-              ),
+              ],
             ),
           );
         });

@@ -10,6 +10,9 @@ const List<Color> myColors = [
   myIndigo
 ];
 
+/// Pro blue
+const Color myTrustBlue = CupertinoColors.activeBlue;
+
 /// Indigo
 const Color myIndigo = Color(0xff6a4c93);
 
