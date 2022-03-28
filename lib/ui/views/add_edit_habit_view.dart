@@ -49,6 +49,7 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
     AddEditHabitModel _addEditHabitModel =
         Provider.of<AddEditHabitModel>(context, listen: false);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
@@ -109,6 +110,7 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: mediumPadding),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               UIHelper.verticalSpaceSmall(),

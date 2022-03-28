@@ -7,24 +7,25 @@ import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
 import 'package:habit_tracker/ui/shared/app_ui_spacing.dart';
 import 'package:provider/provider.dart';
 
-List<String> _daysStrings = [
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Sunday',
-];
-
 /// Days select section
 class DaysSelect extends StatelessWidget {
   const DaysSelect({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // Current selected days
     List<bool> daysValues =
         Provider.of<AddEditHabitModel>(context).selectedDays;
+    // Day label strings
+    List<String> daysStrings = [
+      AppLocalizations.of(context)!.monday,
+      AppLocalizations.of(context)!.tuesday,
+      AppLocalizations.of(context)!.wednesday,
+      AppLocalizations.of(context)!.thursday,
+      AppLocalizations.of(context)!.friday,
+      AppLocalizations.of(context)!.saturday,
+      AppLocalizations.of(context)!.sunday,
+    ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -34,6 +35,7 @@ class DaysSelect extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(AppLocalizations.of(context)!.repeatOn, style: textFootnote),
+              UIHelper.verticalSpaceVerySmall(),
               Text(AppLocalizations.of(context)!.cannotBeChanged,
                   style: textCaption2.copyWith(color: myRed)),
             ],
@@ -46,7 +48,8 @@ class DaysSelect extends StatelessWidget {
             7,
             (int index) {
               return ChoiceChip(
-                label: Text(_daysStrings[index], style: textBody),
+                padding: const EdgeInsets.all(smallPadding),
+                label: Text(daysStrings[index], style: textBody),
                 selected: daysValues[index],
                 onSelected: (bool selected) {
                   Provider.of<AddEditHabitModel>(context, listen: false)

@@ -141,7 +141,7 @@ class SettingsView extends StatelessWidget {
               /// VERSION
               UIHelper.verticalSpaceMedium(),
               Text(
-                '1.0.0 (1)',
+                '1.0.0 (2)',
                 style: textCaption2.copyWith(
                   color: myGrey,
                 ),
