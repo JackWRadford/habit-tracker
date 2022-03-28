@@ -4,6 +4,7 @@ import 'package:habit_tracker/core/enums/settings_pos.dart';
 import 'package:habit_tracker/core/models/habit.dart';
 import 'package:habit_tracker/core/providers/add_edit_habit_model.dart';
 import 'package:habit_tracker/core/providers/home_model.dart';
+import 'package:habit_tracker/core/providers/theme_notifier.dart';
 import 'package:habit_tracker/ui/shared/app_colours.dart';
 import 'package:habit_tracker/ui/shared/app_text_styles.dart';
 import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
@@ -49,6 +50,7 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
   Widget build(BuildContext context) {
     AddEditHabitModel _addEditHabitModel =
         Provider.of<AddEditHabitModel>(context, listen: false);
+    Color _cardColor = Provider.of<ThemeNotifier>(context).getCardColor();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -132,7 +134,7 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
               // Colour select
               const ColorSelect(),
               UIHelper.verticalSpaceMedium(),
-              const Divider(color: myGrey, height: 2),
+              Divider(color: _cardColor, thickness: 2, height: 0),
               UIHelper.verticalSpaceMedium(),
               // Day select
               (widget.habit == null)
@@ -145,6 +147,8 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
                         DeleteBtn(habit: widget.habit!),
                       ],
                     ),
+              UIHelper.verticalSpaceMedium(),
+              Divider(color: _cardColor, thickness: 2, height: 0),
             ],
           ),
         ),
