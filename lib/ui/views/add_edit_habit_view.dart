@@ -11,6 +11,7 @@ import 'package:habit_tracker/ui/shared/app_ui_spacing.dart';
 import 'package:habit_tracker/ui/widgets/add_edit_habit_view/color_select.dart';
 import 'package:habit_tracker/ui/widgets/add_edit_habit_view/days_select.dart';
 import 'package:habit_tracker/ui/widgets/add_edit_habit_view/delete_btn.dart';
+import 'package:habit_tracker/ui/widgets/add_edit_habit_view/reset_btn.dart';
 import 'package:habit_tracker/ui/widgets/shared/section_input.dart';
 import 'package:provider/provider.dart';
 
@@ -136,7 +137,14 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
               // Day select
               (widget.habit == null)
                   ? const DaysSelect()
-                  : DeleteBtn(habit: widget.habit!),
+                  : Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Resetbtn(habit: widget.habit!),
+                        DeleteBtn(habit: widget.habit!),
+                      ],
+                    ),
             ],
           ),
         ),

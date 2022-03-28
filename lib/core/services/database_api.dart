@@ -311,6 +311,12 @@ class LocalDatabaseApi {
         .delete(_tableDays, where: '$_colId = ?', whereArgs: [habitDayId]);
   }
 
+  /// Delete all habitDays for given [habitId]
+  Future<int> deleteHabitDaysForHabit(int habitId) async {
+    return await db
+        .delete(_tableDays, where: '$_colHabitId = ?', whereArgs: [habitId]);
+  }
+
   /*---------------------Settings functions----------------------*/
 
   /// Insert settings

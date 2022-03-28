@@ -57,6 +57,16 @@ class HomeModel extends BaseModel {
     notifyListeners();
   }
 
+  /// Reset habit data
+  Future<void> resetHabitData(Habit h) async {
+    // Reset habit best streak
+    h.bestStreak = 0;
+    await _api.updateHabit(h);
+    // Delete all habitDays for given habitId
+    await _api.deleteHabitDaysForHabit(h.id!);
+    notifyListeners();
+  }
+
   /// Return integer corresponding to message required
   int getWelcome() {
     int h = DateTime.now().hour;
