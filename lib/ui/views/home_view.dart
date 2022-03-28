@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:habit_tracker/core/enums/view_state.dart';
 import 'package:habit_tracker/core/models/habit.dart';
 import 'package:habit_tracker/core/providers/home_model.dart';
+import 'package:habit_tracker/core/providers/iap_model.dart';
 import 'package:habit_tracker/ui/shared/app_colours.dart';
 import 'package:habit_tracker/ui/shared/app_text_styles.dart';
 import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
@@ -25,6 +26,8 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addObserver(this);
+    // Init in app purchases (early)
+    Provider.of<InAppPurchaseModel>(context, listen: false).initialize();
   }
 
   /// App lifecycle logic
