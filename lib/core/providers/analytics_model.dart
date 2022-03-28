@@ -144,7 +144,7 @@ class AnalyticsModel extends BaseModel {
     // From this date (exclusive)
     DateTime from = DateTime(now.year - 1, now.month, now.day);
     List<HabitDay> days = await _api.getDaysFrom(h.id!, from);
-    int currentMonth = days[0].date.month;
+    int currentMonth = now.month;
     bool newMonth = false;
     String monthStr = '';
     List<Color> currentCol = [];
