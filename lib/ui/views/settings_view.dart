@@ -55,8 +55,16 @@ class SettingsView extends StatelessWidget {
               SectionToggle(
                 title: AppLocalizations.of(context)!.darkMode,
                 onChanged: (value) {
-                  Provider.of<ThemeNotifier>(context, listen: false)
-                      .setTheme(value);
+                  if (isPro || !value) {
+                    Provider.of<ThemeNotifier>(context, listen: false)
+                        .setTheme(value);
+                  } else {
+                    // Navigate to pro view
+                    Navigator.pushNamed(
+                      context,
+                      '/proView',
+                    );
+                  }
                 },
                 pos: SettingsPos.solo,
                 value: Provider.of<ThemeNotifier>(context).getIsDarkMode(),

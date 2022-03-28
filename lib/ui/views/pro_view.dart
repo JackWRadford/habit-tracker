@@ -59,14 +59,21 @@ class ProView extends StatelessWidget {
                       iconData: CupertinoIcons.infinite,
                     ),
                     UIHelper.verticalSpaceSmall(),
-                    //support me
+                    // Dark mode
+                    ProFeatureCard(
+                      title: AppLocalizations.of(context)!.darkMode,
+                      description: AppLocalizations.of(context)!.darkModeDesc,
+                      iconData: CupertinoIcons.moon_circle_fill,
+                    ),
+                    UIHelper.verticalSpaceSmall(),
+                    // Support me
                     ProFeatureCard(
                       title: AppLocalizations.of(context)!.supportMe,
                       description: AppLocalizations.of(context)!.supportMeDesc,
                       iconData: CupertinoIcons.heart_circle_fill,
                     ),
                     UIHelper.verticalSpaceSmall(),
-                    //get all future updates
+                    // Get all future updates
                     ProFeatureCard(
                       title: AppLocalizations.of(context)!.futureUpdates,
                       description:
