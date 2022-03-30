@@ -9,26 +9,17 @@ class ThemeNotifier with ChangeNotifier {
   /// Settings service
   final SettingsService _settingsService = locator<SettingsService>();
 
-  ThemeNotifier() {
-    // Load settings (needed earlier for theme)
-    _getSettings();
-  }
-
-  ///gets settings from the DB and stores in dataService
-  Future<void> _getSettings() async {
-    await _settingsService.getSettings();
-    notifyListeners();
-  }
+  ThemeNotifier();
 
   /// Returns bool if dark mode or not
   bool getIsDarkMode() {
-    return _settingsService.settings.isDark;
+    return _settingsService.getSettings().isDark;
   }
 
   /// Sets new theme (updates DB)
   setTheme(bool value) async {
     // Update local settings isDark
-    _settingsService.settings.isDark = value;
+    _settingsService.getSettings().isDark = value;
     // Update settings in database
     _settingsService.updateSettings();
     notifyListeners();

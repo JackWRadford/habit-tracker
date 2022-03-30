@@ -12,10 +12,7 @@ class SettingsModel extends BaseModel {
   final ReviewService _reviewService = locator<ReviewService>();
 
   /// Constructor
-  SettingsModel() {
-    // Callback from settings service when needed
-    _settingsService.callBackSettingsModel = () => notifyListeners();
-  }
+  SettingsModel();
 
   /// Open app store review page
   void openReviewInStore() {
@@ -24,6 +21,6 @@ class SettingsModel extends BaseModel {
 
   /// Get if user has PRO
   bool isUserPro() {
-    return _settingsService.settings.isPro;
+    return _settingsService.getSettings().isPro;
   }
 }

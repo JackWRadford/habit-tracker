@@ -14,16 +14,14 @@ class LocaleModel extends BaseModel {
 
   /// Constructor
   LocaleModel() {
-    // Callback from settings service when needed
-    _settingsService.callBackLocaleModel =
-        () => setLocale(_settingsService.settings.locale);
+    selectedLocale = _settingsService.getSettings().locale;
   }
 
   /// Set locale to given locale [l]
   void setLocale(Locale? l) {
     selectedLocale = l;
     // update database
-    _settingsService.settings.locale = selectedLocale;
+    _settingsService.getSettings().locale = selectedLocale;
     _settingsService.updateSettings();
     notifyListeners();
   }

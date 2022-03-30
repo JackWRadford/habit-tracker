@@ -159,7 +159,7 @@ class InAppPurchaseModel extends BaseModel {
 
   /// Update isPro settings to true
   void _updateSettingsIsPro() {
-    _settingsService.settings.isPro = true;
+    _settingsService.getSettings().isPro = true;
     _settingsService.updateSettings();
   }
 }
