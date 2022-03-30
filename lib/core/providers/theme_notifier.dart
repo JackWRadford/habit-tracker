@@ -11,11 +11,11 @@ class ThemeNotifier with ChangeNotifier {
 
   ThemeNotifier() {
     // Load settings (needed earlier for theme)
-    getSettings();
+    _getSettings();
   }
 
   ///gets settings from the DB and stores in dataService
-  Future<void> getSettings() async {
+  Future<void> _getSettings() async {
     await _settingsService.getSettings();
     notifyListeners();
   }

@@ -13,14 +13,19 @@ class SettingsService {
   /// Callback settingsModel when settings are updated (from IAPModel)
   VoidCallback? callBackSettingsModel;
 
+  /// Callback localeModel when settings are updated
+  VoidCallback? callBackLocaleModel;
+
   /// Constructor
-  SettingsService({this.callBackSettingsModel});
+  SettingsService({this.callBackSettingsModel, this.callBackLocaleModel});
 
   /// Gets settings from the DB
   Future<void> getSettings() async {
     settings = await _api.getSettings();
     // Call callback to update settingsModel
     if (callBackSettingsModel != null) callBackSettingsModel!();
+    // Call callback to update localeModel
+    if (callBackLocaleModel != null) callBackLocaleModel!();
   }
 
   /// Update settings with (this) settings
@@ -28,5 +33,7 @@ class SettingsService {
     await _api.updateSettings(settings);
     // Call callback to update settingsModel
     if (callBackSettingsModel != null) callBackSettingsModel!();
+    // Call callback to update localeModel
+    if (callBackLocaleModel != null) callBackLocaleModel!();
   }
 }

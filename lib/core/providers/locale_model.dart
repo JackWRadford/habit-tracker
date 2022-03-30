@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/core/locator.dart';
 import 'package:habit_tracker/core/providers/base_model.dart';
-import 'package:habit_tracker/core/services/database_api.dart';
+import 'package:habit_tracker/core/services/settings_service.dart';
 
 /// Handles the selected locale
 class LocaleModel extends BaseModel {
-  /// Local database API
-  final LocalDatabaseApi _api = locator<LocalDatabaseApi>();
+  /// Settings service
+  final SettingsService _settingsService = locator<SettingsService>();
 
   /// Currently selected locale. Defaults to platform locale (null)
   /// Flutter Localizations finds the nearest from supportedLocals
@@ -14,13 +14,17 @@ class LocaleModel extends BaseModel {
 
   /// Constructor
   LocaleModel() {
-    //TODO get locale from database if exists
+    // Callback from settings service when needed
+    _settingsService.callBackLocaleModel =
+        () => setLocale(_settingsService.settings.locale);
   }
 
   /// Set locale to given locale [l]
-  void setLocale(Locale l) async {
+  void setLocale(Locale? l) {
     selectedLocale = l;
-    // TODO await update database
+    // update database
+    _settingsService.settings.locale = selectedLocale;
+    _settingsService.updateSettings();
     notifyListeners();
   }
 }

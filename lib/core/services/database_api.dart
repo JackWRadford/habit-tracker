@@ -48,9 +48,15 @@ final List<String>? _daysColumns = [_colId, _colHabitId, _colDate];
 const String _tableSettings = 'Settings';
 const String _colIsDark = 'isDark';
 const String _colIsPro = 'isPro';
+const String _colLocale = 'locale';
 
 /// List of all [_tableSettings] columns
-final List<String>? _settingsColumns = [_colId, _colIsDark, _colIsPro];
+final List<String>? _settingsColumns = [
+  _colId,
+  _colIsDark,
+  _colIsPro,
+  _colLocale
+];
 
 /// Map of db version to scripts for migration control
 Map<int, String> _migrationScripts = {
@@ -84,6 +90,7 @@ Map<int, String> _migrationScripts = {
           FOREIGN KEY($_colHabitId) REFERENCES $_tableHabits($_colId) ON DELETE CASCADE,
           PRIMARY KEY ($_colId)
           )''',
+  5: 'ALTER TABLE $_tableSettings ADD COLUMN $_colLocale TEXT',
 };
 
 /// Database instance
