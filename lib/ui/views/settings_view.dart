@@ -49,7 +49,7 @@ class SettingsView extends StatelessWidget {
                     )
                   : Container(),
 
-              /// GENERAL SECTION
+              /// PREFERENCES SECTION
               SectionLabel(
                   labelText: AppLocalizations.of(context)!.preferences),
               SectionToggle(
@@ -92,7 +92,7 @@ class SettingsView extends StatelessWidget {
                 hasArrow: true,
                 pos: SettingsPos.top,
               ),
-              //rate
+              // Rate
               SectionButton(
                 onPressed: () async {
                   Provider.of<SettingsModel>(context, listen: false)
@@ -105,12 +105,28 @@ class SettingsView extends StatelessWidget {
                 hasArrow: true,
                 pos: SettingsPos.middle,
               ),
-              //terms and conditions
+              // Language
+              SectionButton(
+                onPressed: () async {
+                  // Navigate to language view
+                  Navigator.pushNamed(
+                    context,
+                    '/localsView',
+                  );
+                },
+                buttonLabel: AppLocalizations.of(context)!.language,
+                icon: const Icon(
+                  CupertinoIcons.location_north,
+                ),
+                hasArrow: true,
+                pos: SettingsPos.middle,
+              ),
+              // Terms and conditions
               SectionButton(
                 onPressed: () async {
                   const String urlString =
                       'https://jackwradford.com/#/habittracker/terms';
-                  //try to open external link to privacy policy
+                  // Try to open external link to privacy policy
                   if (await canLaunch(urlString)) {
                     await launch(urlString);
                   } else {
@@ -125,7 +141,7 @@ class SettingsView extends StatelessWidget {
                 hasArrow: true,
                 pos: SettingsPos.middle,
               ),
-              //privacy policy
+              // Privacy policy
               SectionButton(
                 onPressed: () async {
                   const String urlString =

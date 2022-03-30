@@ -15,7 +15,7 @@ class LastWeekList extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: mediumPadding + smallPadding),
       child: SizedBox(
-        height: 30,
+        height: 29,
         child: ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           scrollDirection: Axis.horizontal,

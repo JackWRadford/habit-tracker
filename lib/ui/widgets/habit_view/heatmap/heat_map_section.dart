@@ -3,12 +3,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:habit_tracker/core/models/habit.dart';
 import 'package:habit_tracker/core/models/heat_col.dart';
 import 'package:habit_tracker/core/providers/analytics_model.dart';
+import 'package:habit_tracker/core/providers/locale_model.dart';
 import 'package:habit_tracker/ui/shared/app_colours.dart';
 import 'package:habit_tracker/ui/shared/app_text_styles.dart';
 import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
 import 'package:habit_tracker/ui/shared/app_ui_spacing.dart';
 import 'package:habit_tracker/ui/widgets/habit_view/heatmap/heat_box.dart';
 import 'package:habit_tracker/ui/widgets/habit_view/heatmap/heat_column.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class HeatMapSection extends StatelessWidget {
@@ -69,13 +71,14 @@ class HeatMapSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       UIHelper.verticalSpaceVerySmall(),
-                      _weekdayLabel(AppLocalizations.of(context)!.mon),
-                      _weekdayLabel(AppLocalizations.of(context)!.tue),
-                      _weekdayLabel(AppLocalizations.of(context)!.wed),
-                      _weekdayLabel(AppLocalizations.of(context)!.thu),
-                      _weekdayLabel(AppLocalizations.of(context)!.fri),
-                      _weekdayLabel(AppLocalizations.of(context)!.sat),
-                      _weekdayLabel(AppLocalizations.of(context)!.sun),
+                      // Dates are arbitrary past (mon, tue, wed...)
+                      _weekdayLabel(DateTime(2022, 2, 21), context),
+                      _weekdayLabel(DateTime(2022, 2, 22), context),
+                      _weekdayLabel(DateTime(2022, 2, 23), context),
+                      _weekdayLabel(DateTime(2022, 2, 24), context),
+                      _weekdayLabel(DateTime(2022, 2, 25), context),
+                      _weekdayLabel(DateTime(2022, 2, 26), context),
+                      _weekdayLabel(DateTime(2022, 2, 27), context),
                     ],
                   ),
                   UIHelper.horizontalSpaceSmall(),
@@ -115,8 +118,10 @@ class HeatMapSection extends StatelessWidget {
                                   : 0,
                               itemBuilder: (context, index) {
                                 if (snapshot.data != null) {
+                                  int? label = snapshot.data![index].label;
                                   return HeatColumn(
-                                    label: snapshot.data![index].label,
+                                    label:
+                                        (label != null) ? label.toString() : '',
                                     colors: snapshot.data![index].colors,
                                   );
                                 } else {
@@ -137,10 +142,16 @@ class HeatMapSection extends StatelessWidget {
   }
 
   /// Weekday label text
-  Widget _weekdayLabel(String s) {
+  Widget _weekdayLabel(DateTime weekday, BuildContext ctx) {
+    String langCode = Provider.of<LocaleModel>(ctx).selectedLocale.languageCode;
     return Padding(
       padding: const EdgeInsets.only(bottom: 9),
-      child: Text(s, style: textCaption2.copyWith(color: myGrey)),
+      child: Text(
+          DateFormat('E', langCode)
+              .format(weekday)
+              .substring(0, (langCode.contains('zh')) ? 2 : 3),
+          style: textCaption2.copyWith(
+              color: myGrey, fontSize: (langCode.contains('zh')) ? 9 : null)),
     );
   }
 }

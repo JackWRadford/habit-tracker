@@ -57,14 +57,16 @@
     "restored":"Purchases Restored",
     "restoredDesc":"All your previous purchases have been restored.",
     "okay":"Okay",
-    "doMore":"Do more",
-    "withh":"with",
-    "turnPro":"Trait Pro",
+    "traitPro":"Trait Pro",
     "noLimits":"No Limits",
     "noLimitsDesc":"Unlimited habits",
     "supportMe":"Support Me",
     "supportMeDesc":"Help fund further development",
     "futureUpdates":"Future Updates",
     "futureUpdatesDesc":"More Pro features coming soon",
-    "darkModeDesc":"Unlock dark mode"
+    "darkModeDesc":"Unlock dark mode",
+    "selectLanguage":"Select Language",
+    "language":"Language",
+    "english":"English",
+    "chineseSimplified":"Chinese (simplified)"
 }

@@ -36,9 +36,13 @@ class HeatColumn extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Text(
-              label,
-              style: textCaption2.copyWith(color: myGrey),
+            child: SizedBox(
+              width: 22,
+              child: Text(
+                label,
+                style: textCaption2.copyWith(color: myGrey),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ],

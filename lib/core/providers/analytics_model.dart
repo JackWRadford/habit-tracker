@@ -7,7 +7,6 @@ import 'package:habit_tracker/core/models/habit_day.dart';
 import 'package:habit_tracker/core/models/heat_col.dart';
 import 'package:habit_tracker/core/providers/base_model.dart';
 import 'package:habit_tracker/core/services/database_api.dart';
-import 'package:intl/intl.dart';
 
 /// View Model for analytics view
 class AnalyticsModel extends BaseModel {
@@ -103,22 +102,18 @@ class AnalyticsModel extends BaseModel {
     }
 
     List<FlSpot> spots = [];
-    List<String> xAxis = [];
+    List<int> xAxis = [];
     // Current month % (1st to today)
     DateTime today = getToday();
     DateTime first = DateTime(today.year, today.month, 1); // 1st of month
     spots.add(FlSpot(11, await _getY(h, first, today)));
-    xAxis.add(
-      DateFormat('LLL').format(first),
-    );
+    xAxis.add(first.month);
     // Previous 11 months
     for (var i = 1; i < 12; i++) {
       DateTime f = DateTime(today.year, today.month - i, 1); // 1st of month
       DateTime t = DateTime(f.year, f.month + 1, 0); // last of month
       spots.add(FlSpot((11 - i).toDouble(), await _getY(h, f, t)));
-      xAxis.add(
-        DateFormat('LLL').format(f),
-      );
+      xAxis.add(f.month);
     }
     return [spots, xAxis.reversed.toList()];
   }
@@ -126,13 +121,11 @@ class AnalyticsModel extends BaseModel {
   /// Generate initial chart data for future builder
   List<dynamic> getInitChartData() {
     List<FlSpot> spots = [];
-    List<String> xAxis = [];
+    List<int> xAxis = [];
     DateTime today = getToday();
     for (var i = 0; i < 12; i++) {
       spots.add(FlSpot(i.toDouble(), 0));
-      xAxis.add(
-        DateFormat('LLL').format(DateTime(today.year, today.month - i)),
-      );
+      xAxis.add(today.month - i);
     }
     return [spots, xAxis];
   }
@@ -146,7 +139,7 @@ class AnalyticsModel extends BaseModel {
     List<HabitDay> days = await _api.getDaysFrom(h.id!, from);
     int currentMonth = now.month;
     bool newMonth = false;
-    String monthStr = '';
+    int monthLabel = 0;
     List<Color> currentCol = [];
 
     while (now.isAfter(from)) {
@@ -155,8 +148,7 @@ class AnalyticsModel extends BaseModel {
       if (days.map((d) => d.date).contains(now)) day.isDone = true;
       // Check if new month
       if (day.date.month != currentMonth) {
-        monthStr =
-            DateFormat('LLL').format(DateTime(now.year, currentMonth, 1));
+        monthLabel = currentMonth;
         currentMonth = day.date.month;
         newMonth = true;
       }
@@ -164,7 +156,7 @@ class AnalyticsModel extends BaseModel {
         // Add week to list and start new week
         heatData.add(
           HeatColData(
-            label: (newMonth) ? monthStr : '',
+            label: (newMonth) ? monthLabel : null,
             colors: currentCol,
           ),
         );

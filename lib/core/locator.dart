@@ -3,6 +3,7 @@ import 'package:habit_tracker/core/providers/add_edit_habit_model.dart';
 import 'package:habit_tracker/core/providers/analytics_model.dart';
 import 'package:habit_tracker/core/providers/home_model.dart';
 import 'package:habit_tracker/core/providers/iap_model.dart';
+import 'package:habit_tracker/core/providers/locale_model.dart';
 import 'package:habit_tracker/core/providers/settings_model.dart';
 import 'package:habit_tracker/core/services/database_api.dart';
 import 'package:habit_tracker/core/providers/theme_notifier.dart';
@@ -26,4 +27,5 @@ void initLocator() {
   locator.registerFactory(() => AnalyticsModel());
   locator.registerFactory(() => InAppPurchaseModel());
   locator.registerFactory(() => SettingsModel());
+  locator.registerFactory(() => LocaleModel());
 }

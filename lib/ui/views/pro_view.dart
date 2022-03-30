@@ -34,21 +34,9 @@ class ProView extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: mediumPadding),
-                      child: Text.rich(
-                        TextSpan(
-                          text: '${AppLocalizations.of(context)!.doMore} \n',
-                          style: textTitle1,
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: '${AppLocalizations.of(context)!.withh} ',
-                              style: textTitle1,
-                            ),
-                            TextSpan(
-                              text: AppLocalizations.of(context)!.turnPro,
-                              style: textTitle1,
-                            ),
-                          ],
-                        ),
+                      child: Text(
+                        AppLocalizations.of(context)!.traitPro,
+                        style: textTitle1,
                       ),
                     ),
                     UIHelper.verticalSpaceMedium(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/core/providers/locale_model.dart';
 import 'package:habit_tracker/core/providers/theme_notifier.dart';
 import 'package:habit_tracker/ui/shared/app_colours.dart';
 import 'package:habit_tracker/ui/shared/app_text_styles.dart';
@@ -15,19 +16,26 @@ class DateListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get currently selected language code
+    String langCode =
+        Provider.of<LocaleModel>(context).selectedLocale.languageCode;
     Color textColor = (isLast)
         ? Provider.of<ThemeNotifier>(context).getHighlightColor(false)
         : myGrey;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: tinyPadding),
       child: SizedBox(
-        width: 20,
+        width: 22,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(DateFormat('d').format(date),
                 style: textCaption1.copyWith(color: textColor)),
-            Text(DateFormat('EEEE').format(date).substring(0, 2).toUpperCase(),
+            Text(
+                DateFormat('E', langCode)
+                    .format(date)
+                    .substring(0, 2) // (0,1) for japanese
+                    .toUpperCase(),
                 style: textCaption2.copyWith(color: textColor)),
           ],
         ),

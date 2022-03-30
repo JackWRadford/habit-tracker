@@ -30,7 +30,7 @@ class HabitDayTick extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: tinyPadding),
         child: SizedBox(
-          width: 20,
+          width: 22,
           child: (habitDay.isDone)
               ? Icon(CupertinoIcons.circle_fill, size: 16, color: habit.color)
               : (_habitIncludesDay(habit, habitDay))

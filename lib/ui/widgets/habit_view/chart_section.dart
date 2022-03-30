@@ -82,7 +82,7 @@ class ChartSection extends StatelessWidget {
               textCaption2.copyWith(color: myGrey),
           getTitles: (value) {
             if (chartData != null) {
-              return chartData[1][value.toInt()][0];
+              return chartData[1][value.toInt()].toString();
             } else {
               return '';
             }
