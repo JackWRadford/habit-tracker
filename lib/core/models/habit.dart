@@ -16,11 +16,7 @@ class Habit {
   /// Double for last 30 days percentage completed
   double last30 = 0;
 
-  Habit({
-    this.title = '',
-    this.color = myRed,
-    this.requiredDays = const [false, false, false, false, false, false, false],
-  });
+  Habit();
 
   /// Convert from Habit to Map
   Map<String, dynamic> toMap() {

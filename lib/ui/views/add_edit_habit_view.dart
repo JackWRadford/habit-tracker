@@ -89,10 +89,10 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
                       .updateHabit(widget.habit!);
                 } else {
                   // Create new habit
-                  Habit newHabit = Habit(
-                      title: _controllerTitle.text,
-                      color: _addEditHabitModel.selectedColor,
-                      requiredDays: _addEditHabitModel.selectedDays);
+                  Habit newHabit = Habit();
+                  newHabit.title = _controllerTitle.text;
+                  newHabit.color = _addEditHabitModel.selectedColor;
+                  newHabit.requiredDays = _addEditHabitModel.selectedDays;
                   Provider.of<HomeModel>(context, listen: false)
                       .addNewHabit(newHabit);
                 }

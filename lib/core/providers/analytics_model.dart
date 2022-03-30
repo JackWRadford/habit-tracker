@@ -88,33 +88,34 @@ class AnalyticsModel extends BaseModel {
     return timesRequired;
   }
 
-  /// Get last year spot data and x-axis
+  /// Get last 12 months spot data and x-axis
   ///
   /// Returns lists of List<FlSpot> and List<String>
   Future<List<dynamic>> getChartData(Habit h) async {
-    /// Calculate y-axis
+    /// Calculate % done of required between f and t for habit h
     Future<double> _getY(Habit h, DateTime f, DateTime t) async {
       double value = (((await _api.habitDaysCountForHabit(h.id!, f, t)) /
               _getTimesRequiedBetween(h, f, t)) *
           100);
+      // Cap value at 100(%)
       if (value > 100) value = 100;
       return value;
     }
 
     List<FlSpot> spots = [];
     List<int> xAxis = [];
-    // Current month % (1st to today)
+
+    // Current % done for each of last 12 months
     DateTime today = getToday();
-    DateTime first = DateTime(today.year, today.month, 1); // 1st of month
-    spots.add(FlSpot(11, await _getY(h, first, today)));
-    xAxis.add(first.month);
-    // Previous 11 months
-    for (var i = 1; i < 12; i++) {
+
+    for (var i = 0; i < 12; i++) {
       DateTime f = DateTime(today.year, today.month - i, 1); // 1st of month
-      DateTime t = DateTime(f.year, f.month + 1, 0); // last of month
+      DateTime t =
+          (i == 0) ? today : DateTime(f.year, f.month + 1, 0); // last of month
       spots.add(FlSpot((11 - i).toDouble(), await _getY(h, f, t)));
       xAxis.add(f.month);
     }
+
     return [spots, xAxis.reversed.toList()];
   }
 
