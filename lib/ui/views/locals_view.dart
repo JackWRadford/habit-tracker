@@ -39,11 +39,8 @@ class LocalsView extends StatelessWidget {
             shrinkWrap: true,
             itemBuilder: (context, index) {
               Locale locale = AppLocalizations.supportedLocales[index];
-              bool selected = (locale.languageCode.substring(0, 2) ==
-                  Provider.of<LocaleModel>(context)
-                      .selectedLocale
-                      .languageCode
-                      .substring(0, 2));
+              // Check if item's locale is equal to the current app locale
+              bool selected = (locale == Localizations.localeOf(context));
               return SectionButton(
                   labelColor: (selected) ? null : myGrey,
                   onPressed: () {

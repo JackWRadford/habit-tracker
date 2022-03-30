@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker/core/providers/locale_model.dart';
 import 'package:habit_tracker/core/providers/theme_notifier.dart';
 import 'package:habit_tracker/ui/shared/app_colours.dart';
 import 'package:habit_tracker/ui/shared/app_text_styles.dart';
@@ -17,8 +16,7 @@ class DateListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get currently selected language code
-    String langCode =
-        Provider.of<LocaleModel>(context).selectedLocale.languageCode;
+    Locale locale = Localizations.localeOf(context);
     Color textColor = (isLast)
         ? Provider.of<ThemeNotifier>(context).getHighlightColor(false)
         : myGrey;
@@ -32,7 +30,7 @@ class DateListItem extends StatelessWidget {
             Text(DateFormat('d').format(date),
                 style: textCaption1.copyWith(color: textColor)),
             Text(
-                DateFormat('E', langCode)
+                DateFormat('E', locale.toString())
                     .format(date)
                     .substring(0, 2) // (0,1) for japanese
                     .toUpperCase(),

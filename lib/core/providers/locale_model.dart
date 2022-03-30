@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/core/locator.dart';
 import 'package:habit_tracker/core/providers/base_model.dart';
@@ -10,13 +8,13 @@ class LocaleModel extends BaseModel {
   /// Local database API
   final LocalDatabaseApi _api = locator<LocalDatabaseApi>();
 
-  /// Currently selected locale. Defaults to platform locale
-  Locale selectedLocale =
-      Locale.fromSubtags(languageCode: Platform.localeName.substring(0, 2));
+  /// Currently selected locale. Defaults to platform locale (null)
+  /// Flutter Localizations finds the nearest from supportedLocals
+  Locale? selectedLocale;
 
   /// Constructor
   LocaleModel() {
-    //TODO get locale from database if exists. else use platform
+    //TODO get locale from database if exists
   }
 
   /// Set locale to given locale [l]

@@ -87,11 +87,12 @@ class MyApp extends StatelessWidget {
           // Factories that produce collections of localized values
           // Generated lists, instead of providing them manually
           localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          // supportedLocales: const <Locale>[
-          //   Locale('en', ''),
-          //   Locale('zh', ''),
-          // ],
+          // supportedLocales: AppLocalizations.supportedLocales,
+          supportedLocales: const <Locale>[
+            Locale.fromSubtags(languageCode: 'en'),
+            Locale.fromSubtags(languageCode: 'zh'),
+            // Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
+          ],
           locale: Provider.of<LocaleModel>(context).selectedLocale,
           // Get app theme from themeNotifier
           theme: Provider.of<ThemeNotifier>(context).getTheme(),

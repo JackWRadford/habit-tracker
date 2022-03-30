@@ -3,7 +3,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:habit_tracker/core/models/habit.dart';
 import 'package:habit_tracker/core/models/heat_col.dart';
 import 'package:habit_tracker/core/providers/analytics_model.dart';
-import 'package:habit_tracker/core/providers/locale_model.dart';
 import 'package:habit_tracker/ui/shared/app_colours.dart';
 import 'package:habit_tracker/ui/shared/app_text_styles.dart';
 import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
@@ -19,6 +18,7 @@ class HeatMapSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Locale locale = Localizations.localeOf(context);
     return Card(
       margin: const EdgeInsets.all(0),
       shape: RoundedRectangleBorder(
@@ -72,13 +72,13 @@ class HeatMapSection extends StatelessWidget {
                     children: [
                       UIHelper.verticalSpaceVerySmall(),
                       // Dates are arbitrary past (mon, tue, wed...)
-                      _weekdayLabel(DateTime(2022, 2, 21), context),
-                      _weekdayLabel(DateTime(2022, 2, 22), context),
-                      _weekdayLabel(DateTime(2022, 2, 23), context),
-                      _weekdayLabel(DateTime(2022, 2, 24), context),
-                      _weekdayLabel(DateTime(2022, 2, 25), context),
-                      _weekdayLabel(DateTime(2022, 2, 26), context),
-                      _weekdayLabel(DateTime(2022, 2, 27), context),
+                      _weekdayLabel(DateTime(2022, 2, 21), locale),
+                      _weekdayLabel(DateTime(2022, 2, 22), locale),
+                      _weekdayLabel(DateTime(2022, 2, 23), locale),
+                      _weekdayLabel(DateTime(2022, 2, 24), locale),
+                      _weekdayLabel(DateTime(2022, 2, 25), locale),
+                      _weekdayLabel(DateTime(2022, 2, 26), locale),
+                      _weekdayLabel(DateTime(2022, 2, 27), locale),
                     ],
                   ),
                   UIHelper.horizontalSpaceSmall(),
@@ -142,16 +142,16 @@ class HeatMapSection extends StatelessWidget {
   }
 
   /// Weekday label text
-  Widget _weekdayLabel(DateTime weekday, BuildContext ctx) {
-    String langCode = Provider.of<LocaleModel>(ctx).selectedLocale.languageCode;
+  Widget _weekdayLabel(DateTime weekday, Locale locale) {
+    bool isZh = (locale == const Locale.fromSubtags(languageCode: 'zh'));
     return Padding(
       padding: const EdgeInsets.only(bottom: 9),
       child: Text(
-          DateFormat('E', langCode)
+          DateFormat('E', locale.toString())
               .format(weekday)
-              .substring(0, (langCode.contains('zh')) ? 2 : 3),
+              .substring(0, (isZh) ? 2 : 3),
           style: textCaption2.copyWith(
-              color: myGrey, fontSize: (langCode.contains('zh')) ? 9 : null)),
+              color: myGrey, fontSize: (isZh) ? 9 : null)),
     );
   }
 }
