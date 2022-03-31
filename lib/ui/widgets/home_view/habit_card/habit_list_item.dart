@@ -28,8 +28,8 @@ class _HabitListItemState extends State<HabitListItem> {
         );
       },
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(
-            mediumPadding, 0, mediumPadding, mediumPadding),
+        padding: const EdgeInsets.symmetric(
+            vertical: smallPadding, horizontal: mediumPadding),
         child: SizedBox(
           height: 96,
           child: Card(

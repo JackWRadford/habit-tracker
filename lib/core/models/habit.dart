@@ -9,6 +9,7 @@ class Habit {
   Color color = myRed;
   List<bool> requiredDays = [false, false, false, false, false, false, false];
   int bestStreak = 0;
+  int pos = 0;
 
   /// List of last 7 habitDays
   List<HabitDay> lastWeek = [];
@@ -31,6 +32,7 @@ class Habit {
       'sat': (requiredDays[5]) ? 1 : 0,
       'sun': (requiredDays[6]) ? 1 : 0,
       'bestStreak': bestStreak,
+      'pos': pos,
     };
   }
 
@@ -47,6 +49,7 @@ class Habit {
     requiredDays[5] = (map['sat'] == 1);
     requiredDays[6] = (map['sun'] == 1);
     bestStreak = map['bestStreak'];
+    pos = (map['pos'] != null) ? map['pos'] : 0;
   }
 
   /// Convert from color [c] to int

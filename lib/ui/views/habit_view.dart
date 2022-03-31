@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker/core/models/habit.dart';
 import 'package:habit_tracker/core/providers/home_model.dart';
 import 'package:habit_tracker/ui/helper/route_view_args.dart';
-import 'package:habit_tracker/ui/shared/app_colours.dart';
 import 'package:habit_tracker/ui/shared/app_text_styles.dart';
 import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
 import 'package:habit_tracker/ui/shared/app_ui_spacing.dart';
@@ -40,7 +39,7 @@ class _HabitViewState extends State<HabitView> {
         title: Text(h.title, style: textBody),
         actions: [
           IconButton(
-            icon: const Icon(CupertinoIcons.ellipsis_vertical, color: myGrey),
+            icon: const Icon(CupertinoIcons.ellipsis_vertical),
             onPressed: () {
               // Open add edit view and pass habit
               Navigator.pushNamed(

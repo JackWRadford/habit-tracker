@@ -172,7 +172,7 @@ class AnalyticsModel extends BaseModel {
     return heatData;
   }
 
-  /// Get color for heatmap day for given [habit] and [day]
+  /// Get color for heatmap day for given [h] and [day]
   ///
   /// Used in [getHeatData] above
   Color _getDayColor(Habit h, HabitDay day) {

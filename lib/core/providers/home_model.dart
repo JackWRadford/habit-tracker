@@ -8,8 +8,11 @@ class HomeModel extends BaseModel {
   /// Local database API
   final LocalDatabaseApi _api = locator<LocalDatabaseApi>();
 
-  /// Currently selected habit (used to update habitView when habit is edited)
+  /// Currently selected habit, used in [addNewHabit] to set the pos
   Habit selectedHabit = Habit();
+
+  /// List of allHabits (since last [getAllHabits] call)
+  List<Habit> _habits = [];
 
   /// Set selected habit
   void setSelectedHabit(Habit habit) {
@@ -18,7 +21,8 @@ class HomeModel extends BaseModel {
 
   /// Get all habits
   Future<List<Habit>> getAllHabits() async {
-    return await _api.getAllHabits();
+    _habits = await _api.getAllHabits();
+    return _habits;
   }
 
   /// Get habits count
@@ -28,17 +32,27 @@ class HomeModel extends BaseModel {
 
   /// Add new habit
   Future<void> addNewHabit(Habit h) async {
+    // Set pos of new habit to top of list
+    h.pos = _habits.length;
     await _api.insertHabit(h);
     notifyListeners();
   }
 
-  /// Update given habit [h]
+  /// Update given habit [h] ALSO UPDATES SELECTEDHABIT
   Future<void> updateHabit(Habit h) async {
     // Update selectedHabit to reflect changes in habitView
     selectedHabit = h;
     // Update habit in database
     await _api.updateHabit(h);
     notifyListeners();
+  }
+
+  /// Update list of [habits]' pos with their index in the given list
+  Future<void> updateHabits(List<Habit> habits) async {
+    for (var i = 0; i < habits.length; i++) {
+      habits[i].pos = i;
+      await _api.updateHabit(habits[i]);
+    }
   }
 
   /// Update given habit day (delete row if settings as not done)

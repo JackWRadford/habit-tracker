@@ -20,6 +20,7 @@ const String _colFri = 'fri';
 const String _colSat = 'sat';
 const String _colSun = 'sun';
 const String _colBestStreak = 'bestStreak';
+const String _colPos = 'pos';
 
 /// List of all [_tableHabits] columns
 final List<String>? _habitsColumns = [
@@ -34,6 +35,7 @@ final List<String>? _habitsColumns = [
   _colSat,
   _colSun,
   _colBestStreak,
+  _colPos,
 ];
 
 // Day table name and columns
@@ -91,6 +93,7 @@ Map<int, String> _migrationScripts = {
           PRIMARY KEY ($_colId)
           )''',
   5: 'ALTER TABLE $_tableSettings ADD COLUMN $_colLocale TEXT',
+  6: 'ALTER TABLE $_tableHabits ADD COLUMN $_colPos INTEGER',
 };
 
 /// Database instance
@@ -193,6 +196,7 @@ class LocalDatabaseApi {
     List<Map<String, dynamic>> maps = await db.query(
       _tableHabits,
       columns: _habitsColumns,
+      orderBy: '$_colPos ASC',
     );
     // Convert maps to Habits
     for (Map<String, dynamic> map in maps) {

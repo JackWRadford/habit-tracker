@@ -9,7 +9,7 @@ import 'package:habit_tracker/ui/shared/app_text_styles.dart';
 import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
 import 'package:habit_tracker/ui/shared/app_ui_spacing.dart';
 import 'package:habit_tracker/ui/widgets/home_view/add_habit_btn.dart';
-import 'package:habit_tracker/ui/widgets/home_view/habit_card/habit_list_item.dart';
+import 'package:habit_tracker/ui/widgets/home_view/habits_list.dart';
 import 'package:habit_tracker/ui/widgets/home_view/last_week_list.dart';
 import 'package:habit_tracker/ui/widgets/home_view/settings_btn.dart';
 import 'package:provider/provider.dart';
@@ -76,16 +76,7 @@ class _HomeViewState extends State<HomeView> with WidgetsBindingObserver {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data!.isNotEmpty) {
-                          return ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            reverse: true,
-                            shrinkWrap: true,
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (context, index) {
-                              return HabitListItem(
-                                  habit: snapshot.data![index]);
-                            },
-                          );
+                          return HabitsList(habits: snapshot.data!);
                         } else {
                           _noHabits();
                         }
