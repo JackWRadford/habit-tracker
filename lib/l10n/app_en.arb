@@ -10,7 +10,7 @@
     "delete":"Delete",
     "confirmTitle":"Confirm Delete",
     "confirmDesc":"This habit and all it's data will be lost forever!",
-    "reset":"Reset",
+    "reset":"Reset data",
     "confirmReset":"Confirm Reset",
     "confirmResetDesc":"This habit's data will be lost forever!",
     "title":"Title",

@@ -45,10 +45,10 @@ class ColorOption extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(largePadding)),
         ),
         child: Center(
-          child:
-              (Provider.of<AddEditHabitModel>(context).selectedColor == color)
-                  ? const Icon(CupertinoIcons.check_mark, color: Colors.white)
-                  : Container(),
+          child: (Provider.of<AddEditHabitModel>(context).selectedColor ==
+                  color)
+              ? const Icon(CupertinoIcons.checkmark_alt, color: Colors.white)
+              : Container(),
         ),
       ),
     );

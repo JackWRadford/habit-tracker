@@ -6,7 +6,9 @@ import 'package:habit_tracker/ui/helper/route_view_args.dart';
 import 'package:habit_tracker/ui/shared/app_text_styles.dart';
 import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
 import 'package:habit_tracker/ui/shared/app_ui_spacing.dart';
+import 'package:habit_tracker/ui/widgets/habit_view/reset_btn.dart';
 import 'package:habit_tracker/ui/widgets/habit_view/chart_section.dart';
+import 'package:habit_tracker/ui/widgets/habit_view/delete_btn.dart';
 import 'package:habit_tracker/ui/widgets/habit_view/general_stats_section.dart';
 import 'package:habit_tracker/ui/widgets/habit_view/heatmap/heat_map_section.dart';
 import 'package:provider/provider.dart';
@@ -64,6 +66,11 @@ class _HabitViewState extends State<HabitView> {
               UIHelper.verticalSpaceMedium(),
               // Last year heatmap
               HeatMapSection(h: h),
+              UIHelper.verticalSpaceMedium(),
+              Resetbtn(habit: widget.habit),
+              UIHelper.verticalSpaceMedium(),
+              DeleteBtn(habit: widget.habit),
+              UIHelper.verticalSpaceLarge(),
               UIHelper.verticalSpaceLarge(),
             ],
           ),

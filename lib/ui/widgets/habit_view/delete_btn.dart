@@ -8,9 +8,9 @@ import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
 import 'package:habit_tracker/ui/widgets/shared/my_alert_dialog.dart';
 import 'package:provider/provider.dart';
 
-class Resetbtn extends StatelessWidget {
+class DeleteBtn extends StatelessWidget {
   final Habit habit;
-  const Resetbtn({Key? key, required this.habit}) : super(key: key);
+  const DeleteBtn({Key? key, required this.habit}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +20,15 @@ class Resetbtn extends StatelessWidget {
         showDialog(
           context: context,
           builder: (context) => MyAlertDialog(
-              title: AppLocalizations.of(context)!.confirmReset,
-              content: AppLocalizations.of(context)!.confirmResetDesc,
+              title: AppLocalizations.of(context)!.confirmTitle,
+              content: AppLocalizations.of(context)!.confirmDesc,
               cancelActionText: AppLocalizations.of(context)!.cancel,
-              defaultActionText: AppLocalizations.of(context)!.reset,
+              defaultActionText: AppLocalizations.of(context)!.delete,
               isDestructive: true,
               defaultActionOnPressed: () {
                 Provider.of<HomeModel>(context, listen: false)
-                    .resetHabitData(habit);
-                // Pop twice times
+                    .deleteHabit(habit.id!);
+                // Pop two times
                 int count = 0;
                 Navigator.popUntil(context, (route) {
                   return count++ == 2;
@@ -39,7 +39,7 @@ class Resetbtn extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(smallPadding),
         child: Center(
-          child: Text(AppLocalizations.of(context)!.reset,
+          child: Text(AppLocalizations.of(context)!.delete,
               style: textFootnote.copyWith(color: myRed)),
         ),
       ),

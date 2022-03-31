@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:habit_tracker/core/providers/add_edit_habit_model.dart';
-import 'package:habit_tracker/ui/shared/app_colours.dart';
 import 'package:habit_tracker/ui/shared/app_text_styles.dart';
 import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
 import 'package:habit_tracker/ui/shared/app_ui_spacing.dart';
@@ -30,14 +29,14 @@ class DaysSelect extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 0),
+          padding: const EdgeInsets.only(left: tinyPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(AppLocalizations.of(context)!.repeatOn, style: textFootnote),
-              UIHelper.verticalSpaceVerySmall(),
-              Text(AppLocalizations.of(context)!.cannotBeChanged,
-                  style: textCaption2.copyWith(color: myRed)),
+              // UIHelper.verticalSpaceVerySmall(),
+              // Text(AppLocalizations.of(context)!.cannotBeChanged,
+              //     style: textCaption2.copyWith(color: myRed)),
             ],
           ),
         ),

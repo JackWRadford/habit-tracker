@@ -105,22 +105,22 @@ class SettingsView extends StatelessWidget {
                 hasArrow: true,
                 pos: SettingsPos.middle,
               ),
-              // Language
-              SectionButton(
-                onPressed: () async {
-                  // Navigate to language view
-                  Navigator.pushNamed(
-                    context,
-                    '/localsView',
-                  );
-                },
-                buttonLabel: AppLocalizations.of(context)!.language,
-                icon: const Icon(
-                  CupertinoIcons.location_north,
-                ),
-                hasArrow: true,
-                pos: SettingsPos.middle,
-              ),
+              // // Language
+              // SectionButton(
+              //   onPressed: () async {
+              //     // Navigate to language view
+              //     Navigator.pushNamed(
+              //       context,
+              //       '/localsView',
+              //     );
+              //   },
+              //   buttonLabel: AppLocalizations.of(context)!.language,
+              //   icon: const Icon(
+              //     CupertinoIcons.location_north,
+              //   ),
+              //   hasArrow: true,
+              //   pos: SettingsPos.middle,
+              // ),
               // Terms and conditions
               SectionButton(
                 onPressed: () async {

@@ -6,7 +6,6 @@ import 'package:habit_tracker/core/providers/add_edit_habit_model.dart';
 import 'package:habit_tracker/core/providers/analytics_model.dart';
 import 'package:habit_tracker/core/providers/home_model.dart';
 import 'package:habit_tracker/core/providers/iap_model.dart';
-import 'package:habit_tracker/core/providers/locale_model.dart';
 import 'package:habit_tracker/core/providers/settings_model.dart';
 import 'package:habit_tracker/core/services/database_api.dart';
 import 'package:habit_tracker/core/providers/theme_notifier.dart';
@@ -15,7 +14,6 @@ import 'package:habit_tracker/ui/helper/route_view_args.dart';
 import 'package:habit_tracker/ui/views/add_edit_habit_view.dart';
 import 'package:habit_tracker/ui/views/habit_view.dart';
 import 'package:habit_tracker/ui/views/home_view.dart';
-import 'package:habit_tracker/ui/views/locals_view.dart';
 import 'package:habit_tracker/ui/views/pro_view.dart';
 import 'package:habit_tracker/ui/views/settings_view.dart';
 import 'package:provider/provider.dart';
@@ -39,10 +37,10 @@ void main() async {
       ChangeNotifierProvider<ThemeNotifier>(
         create: (_) => ThemeNotifier(),
       ),
-      // Locale model
-      ChangeNotifierProvider<LocaleModel>(
-        create: (_) => LocaleModel(),
-      ),
+      // // Locale model
+      // ChangeNotifierProvider<LocaleModel>(
+      //   create: (_) => LocaleModel(),
+      // ),
     ], child: const MyApp()),
   );
 }
@@ -94,10 +92,10 @@ class MyApp extends StatelessWidget {
           // supportedLocales: AppLocalizations.supportedLocales,
           supportedLocales: const <Locale>[
             Locale.fromSubtags(languageCode: 'en'),
-            Locale.fromSubtags(languageCode: 'zh'),
+            // Locale.fromSubtags(languageCode: 'zh'),
             // Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
           ],
-          locale: Provider.of<LocaleModel>(context).selectedLocale,
+          // locale: Provider.of<LocaleModel>(context).selectedLocale,
           // Get app theme from themeNotifier
           theme: Provider.of<ThemeNotifier>(context).getTheme(),
           // Stop native os from scaling text
@@ -155,12 +153,12 @@ class MyApp extends StatelessWidget {
                   },
                   fullscreenDialog: true,
                 );
-              case '/localsView':
-                return MaterialPageRoute(
-                  builder: (context) {
-                    return const LocalsView();
-                  },
-                );
+              // case '/localsView':
+              //   return MaterialPageRoute(
+              //     builder: (context) {
+              //       return const LocalsView();
+              //     },
+              //   );
               default:
                 return MaterialPageRoute(
                   builder: (context) {
