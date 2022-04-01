@@ -57,6 +57,7 @@ dependencies:
   url_launcher: ^6.0.20
   in_app_review: ^2.0.4
   flutter_local_notifications: ^9.4.0
+  flutter_native_timezone: ^2.0.0
   
 dev_dependencies:
   flutter_test:
