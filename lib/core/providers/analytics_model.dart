@@ -110,8 +110,7 @@ class AnalyticsModel extends BaseModel {
 
     for (var i = 0; i < 12; i++) {
       DateTime f = DateTime(today.year, today.month - i, 1); // 1st of month
-      DateTime t =
-          (i == 0) ? today : DateTime(f.year, f.month + 1, 0); // last of month
+      DateTime t = DateTime(f.year, f.month + 1, 0); // last of month
       spots.add(FlSpot((11 - i).toDouble(), await _getY(h, f, t)));
       xAxis.add(f.month);
     }
