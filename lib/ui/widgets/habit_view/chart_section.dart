@@ -1,8 +1,10 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:habit_tracker/core/enums/chart_period.dart';
 import 'package:habit_tracker/core/models/habit.dart';
 import 'package:habit_tracker/core/providers/analytics_model.dart';
+import 'package:habit_tracker/core/providers/home_model.dart';
 import 'package:habit_tracker/core/providers/theme_notifier.dart';
 import 'package:habit_tracker/ui/shared/app_colours.dart';
 import 'package:habit_tracker/ui/shared/app_text_styles.dart';
@@ -17,6 +19,11 @@ class ChartSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map<ChartPeriod, String> _dropDownMap = {
+      ChartPeriod.year: AppLocalizations.of(context)!.year,
+      ChartPeriod.month: AppLocalizations.of(context)!.month,
+      ChartPeriod.week: AppLocalizations.of(context)!.week,
+    };
     return Card(
       margin: const EdgeInsets.all(0),
       shape: const RoundedRectangleBorder(
@@ -32,6 +39,35 @@ class ChartSection extends StatelessWidget {
               children: [
                 Text(AppLocalizations.of(context)!.progress,
                     style: textCallout),
+                DropdownButton(
+                  enableFeedback: true,
+                  alignment: Alignment.centerRight,
+                  iconEnabledColor: myGrey,
+                  borderRadius:
+                      const BorderRadius.all(Radius.circular(smallRadius)),
+                  isDense: true,
+                  style: textCaption1.copyWith(color: myGrey),
+                  underline: Container(),
+                  value: habit.chartPeriod,
+                  items: <ChartPeriod>[
+                    ChartPeriod.year,
+                    ChartPeriod.month,
+                    ChartPeriod.week
+                  ].map<DropdownMenuItem<ChartPeriod>>((ChartPeriod value) {
+                    return DropdownMenuItem<ChartPeriod>(
+                      value: value,
+                      child: Text(
+                        _dropDownMap[value]!,
+                        style: textCaption1,
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    habit.chartPeriod = value as ChartPeriod;
+                    Provider.of<HomeModel>(context, listen: false)
+                        .updateHabit(habit);
+                  },
+                ),
               ],
             ),
             UIHelper.verticalSpaceMedium(),

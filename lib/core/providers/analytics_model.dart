@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/core/enums/chart_period.dart';
 import 'package:habit_tracker/core/helper/helper_functions.dart';
 import 'package:habit_tracker/core/locator.dart';
 import 'package:habit_tracker/core/models/habit.dart';
@@ -92,8 +93,8 @@ class AnalyticsModel extends BaseModel {
   ///
   /// Returns lists of List<FlSpot> and List<String>
   Future<List<dynamic>> getChartData(Habit h) async {
-    /// Calculate % done of required between f and t for habit h
-    Future<double> _getY(Habit h, DateTime f, DateTime t) async {
+    // Calculate % done of required between f and t for habit h [for ChartPeriod.year]
+    Future<double> _getY(DateTime f, DateTime t) async {
       double value = (((await _api.habitDaysCountForHabit(h.id!, f, t)) /
               _getTimesRequiedBetween(h, f, t)) *
           100);
@@ -102,17 +103,56 @@ class AnalyticsModel extends BaseModel {
       return value;
     }
 
+    // Number of required days in last 5 weeks (based on weekdays selected)
+    int requiredDays = 0;
+    int numOfWeeks = 5;
+    for (bool rDay in h.requiredDays) {
+      if (rDay) requiredDays++;
+    }
+    requiredDays = requiredDays * numOfWeeks;
+
+    // Calculate past 5 weeks percentage done from given day
+    Future<double> _getRolling(DateTime d) async {
+      if (requiredDays <= 0) return 100;
+      // DateTime 5 weeks ago from d
+      DateTime p = DateTime(d.year, d.month, d.day - (7 * numOfWeeks));
+      int count = await _api.habitDaysCountForHabit(h.id!, p, d);
+      return (count / requiredDays) * 100;
+    }
+
     List<FlSpot> spots = [];
     List<int> xAxis = [];
-
-    // Current % done for each of last 12 months
     DateTime today = getToday();
 
-    for (var i = 0; i < 12; i++) {
-      DateTime f = DateTime(today.year, today.month - i, 1); // 1st of month
-      DateTime t = DateTime(f.year, f.month + 1, 0); // last of month
-      spots.add(FlSpot((11 - i).toDouble(), await _getY(h, f, t)));
-      xAxis.add(f.month);
+    // Get data depending on the habits chartPeriod
+    switch (h.chartPeriod) {
+      case ChartPeriod.year:
+        // Current % done for each of last 12 months
+        for (var i = 0; i < 12; i++) {
+          DateTime f = DateTime(today.year, today.month - i, 1); // 1st of month
+          DateTime t = DateTime(f.year, f.month + 1, 0); // last of month
+          spots.add(FlSpot((11 - i).toDouble(), await _getY(f, t)));
+          xAxis.add(f.month);
+        }
+        break;
+      case ChartPeriod.month:
+      case ChartPeriod.week:
+        bool isMonth = (h.chartPeriod == ChartPeriod.month);
+        int n = (isMonth) ? 30 : 7;
+        // Iterator for month period spots x
+        int j = 0;
+        // Rolling percentage done in past x days (for past n days)
+        // Ever-other day if month (every day for week)
+        for (var i = 0; i < n; (isMonth) ? i += 2 : i++) {
+          DateTime d =
+              DateTime(today.year, today.month, today.day - i); // 1st of month
+          spots.add(FlSpot(((isMonth) ? (14 - j) : (n - 1 - i)).toDouble(),
+              await _getRolling(d)));
+          xAxis.add(d.day);
+          j++;
+        }
+        break;
+      default:
     }
 
     return [spots, xAxis.reversed.toList()];

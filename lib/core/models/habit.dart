@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/core/enums/chart_period.dart';
 import 'package:habit_tracker/core/models/habit_day.dart';
 import 'package:habit_tracker/ui/shared/app_colours.dart';
 
@@ -10,11 +11,12 @@ class Habit {
   List<bool> requiredDays = [false, false, false, false, false, false, false];
   int bestStreak = 0;
   int pos = 0;
+  ChartPeriod chartPeriod = ChartPeriod.year;
 
   /// List of last 7 habitDays
   List<HabitDay> lastWeek = [];
 
-  /// Double for last 30 days percentage completed
+  /// Double for last 5 weeks (percentage complete)
   double last30 = 0;
 
   Habit();
@@ -33,6 +35,7 @@ class Habit {
       'sun': (requiredDays[6]) ? 1 : 0,
       'bestStreak': bestStreak,
       'pos': pos,
+      'chartPeriod': chartPeriod.index,
     };
   }
 
@@ -50,6 +53,9 @@ class Habit {
     requiredDays[6] = (map['sun'] == 1);
     bestStreak = map['bestStreak'];
     pos = (map['pos'] != null) ? map['pos'] : 0;
+    chartPeriod = (map['chartPeriod'] != null)
+        ? ChartPeriod.values[map['chartPeriod']]
+        : ChartPeriod.year;
   }
 
   /// Convert from color [c] to int

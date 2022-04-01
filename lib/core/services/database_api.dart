@@ -21,6 +21,7 @@ const String _colSat = 'sat';
 const String _colSun = 'sun';
 const String _colBestStreak = 'bestStreak';
 const String _colPos = 'pos';
+const String _colChartPeriod = 'chartPeriod';
 
 /// List of all [_tableHabits] columns
 final List<String>? _habitsColumns = [
@@ -36,6 +37,7 @@ final List<String>? _habitsColumns = [
   _colSun,
   _colBestStreak,
   _colPos,
+  _colChartPeriod,
 ];
 
 // Day table name and columns
@@ -94,6 +96,7 @@ Map<int, String> _migrationScripts = {
           )''',
   5: 'ALTER TABLE $_tableSettings ADD COLUMN $_colLocale TEXT',
   6: 'ALTER TABLE $_tableHabits ADD COLUMN $_colPos INTEGER',
+  7: 'ALTER TABLE $_tableHabits ADD COLUMN $_colChartPeriod INTEGER',
 };
 
 /// Database instance
