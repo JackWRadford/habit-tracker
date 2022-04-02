@@ -9,6 +9,7 @@ import 'package:habit_tracker/core/providers/iap_model.dart';
 import 'package:habit_tracker/core/providers/settings_model.dart';
 import 'package:habit_tracker/core/services/database_api.dart';
 import 'package:habit_tracker/core/providers/theme_notifier.dart';
+import 'package:habit_tracker/core/services/notification_service.dart';
 import 'package:habit_tracker/core/services/settings_service.dart';
 import 'package:habit_tracker/ui/helper/route_view_args.dart';
 import 'package:habit_tracker/ui/views/add_edit_habit_view.dart';
@@ -20,6 +21,8 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Local notifications initialization
+  await initLocalNotifications();
 
   // Initialize database
   await initDB();

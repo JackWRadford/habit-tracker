@@ -12,6 +12,8 @@ class Habit {
   int bestStreak = 0;
   int pos = 0;
   ChartPeriod chartPeriod = ChartPeriod.year;
+  DateTime notiTime = DateTime(2022, 3, 1, 12, 0); // Only time is used
+  bool notiToggle = false;
 
   /// List of last 7 habitDays
   List<HabitDay> lastWeek = [];
@@ -36,6 +38,8 @@ class Habit {
       'bestStreak': bestStreak,
       'pos': pos,
       'chartPeriod': chartPeriod.index,
+      'notiTime': notiTime.toIso8601String(),
+      'notiToggle': (notiToggle) ? 1 : 0,
     };
   }
 
@@ -56,6 +60,10 @@ class Habit {
     chartPeriod = (map['chartPeriod'] != null)
         ? ChartPeriod.values[map['chartPeriod']]
         : ChartPeriod.year;
+    notiTime = (map['notiTime'] != null)
+        ? DateTime.parse(map['notiTime'])
+        : DateTime(2022, 3, 1, 12, 0);
+    notiToggle = (map['notiToggle'] == 1);
   }
 
   /// Convert from color [c] to int
