@@ -57,6 +57,17 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
     return '${_twoDigits(time.hour)}:${_twoDigits(time.minute)}';
   }
 
+  /// Update parameters of new or existing habit [h]
+  void _setHabitParams(Habit h) {
+    AddEditHabitModel _addEditHabitModel =
+        Provider.of<AddEditHabitModel>(context, listen: false);
+    h.title = _controllerTitle.text;
+    h.color = _addEditHabitModel.selectedColor;
+    h.requiredDays = _addEditHabitModel.selectedDays;
+    h.notiTime = _addEditHabitModel.selectedTime;
+    h.notiToggle = _addEditHabitModel.notiToggle;
+  }
+
   @override
   Widget build(BuildContext context) {
     AddEditHabitModel _addEditHabitModel =
@@ -92,22 +103,14 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
               onPressed: () async {
                 if (widget.habit != null) {
                   // Update habit
-                  widget.habit!.title = _controllerTitle.text;
-                  widget.habit!.color = _addEditHabitModel.selectedColor;
-                  widget.habit!.requiredDays = _addEditHabitModel.selectedDays;
-                  widget.habit!.notiTime = _addEditHabitModel.selectedTime;
-                  widget.habit!.notiToggle = _addEditHabitModel.notiToggle;
+                  _setHabitParams(widget.habit!);
                   Provider.of<HomeModel>(context, listen: false)
                       .updateHabit(widget.habit!);
                   _addEditHabitModel.updateNotifications(widget.habit!);
                 } else {
                   // Create new habit
                   Habit newHabit = Habit();
-                  newHabit.title = _controllerTitle.text;
-                  newHabit.color = _addEditHabitModel.selectedColor;
-                  newHabit.requiredDays = _addEditHabitModel.selectedDays;
-                  newHabit.notiTime = _addEditHabitModel.selectedTime;
-                  newHabit.notiToggle = _addEditHabitModel.notiToggle;
+                  _setHabitParams(newHabit);
                   // Need id for notifications id
                   int id = await Provider.of<HomeModel>(context, listen: false)
                       .addNewHabit(newHabit);

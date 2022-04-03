@@ -9,6 +9,7 @@ class SectionToggle extends StatelessWidget {
   final String title;
   final void Function(bool value)? onChanged;
   final bool value;
+  final Color? color;
 
   const SectionToggle({
     Key? key,
@@ -16,6 +17,7 @@ class SectionToggle extends StatelessWidget {
     required this.onChanged,
     required this.pos,
     required this.value,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -42,6 +44,7 @@ class SectionToggle extends StatelessWidget {
               ),
             ),
             CupertinoSwitch(
+              activeColor: color,
               value: value,
               onChanged: onChanged,
             ),

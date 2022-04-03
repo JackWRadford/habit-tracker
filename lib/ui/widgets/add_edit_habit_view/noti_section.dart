@@ -32,6 +32,7 @@ class NotiSection extends StatelessWidget {
             onChanged: (value) {
               _addEditModel.setNotiToggle(value);
             },
+            color: Provider.of<AddEditHabitModel>(context).selectedColor,
             pos: SettingsPos.top,
             value: Provider.of<AddEditHabitModel>(context).notiToggle),
         // Notificaiton Time selected
