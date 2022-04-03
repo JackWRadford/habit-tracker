@@ -10,6 +10,7 @@ import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
 import 'package:habit_tracker/ui/shared/app_ui_spacing.dart';
 import 'package:habit_tracker/ui/widgets/add_edit_habit_view/color_select.dart';
 import 'package:habit_tracker/ui/widgets/add_edit_habit_view/days_select.dart';
+import 'package:habit_tracker/ui/widgets/add_edit_habit_view/noti_section.dart';
 import 'package:habit_tracker/ui/widgets/shared/section_input.dart';
 import 'package:provider/provider.dart';
 
@@ -39,8 +40,21 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
       // Days
       Provider.of<AddEditHabitModel>(context, listen: false).selectedDays =
           widget.habit!.requiredDays;
+      // Notifications
+      Provider.of<AddEditHabitModel>(context, listen: false).selectedTime =
+          widget.habit!.notiTime;
+      Provider.of<AddEditHabitModel>(context, listen: false).notiToggle =
+          widget.habit!.notiToggle;
     }
     super.initState();
+  }
+
+  /// Used to pad strings in [timeStr]
+  String _twoDigits(int n) => n.toString().padLeft(2, "0");
+
+  /// Format time into hh:mm
+  String timeStr(DateTime time) {
+    return '${_twoDigits(time.hour)}:${_twoDigits(time.minute)}';
   }
 
   @override
@@ -75,22 +89,30 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
             ),
             // Save or done button
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 if (widget.habit != null) {
                   // Update habit
                   widget.habit!.title = _controllerTitle.text;
                   widget.habit!.color = _addEditHabitModel.selectedColor;
                   widget.habit!.requiredDays = _addEditHabitModel.selectedDays;
+                  widget.habit!.notiTime = _addEditHabitModel.selectedTime;
+                  widget.habit!.notiToggle = _addEditHabitModel.notiToggle;
                   Provider.of<HomeModel>(context, listen: false)
                       .updateHabit(widget.habit!);
+                  _addEditHabitModel.updateNotifications(widget.habit!);
                 } else {
                   // Create new habit
                   Habit newHabit = Habit();
                   newHabit.title = _controllerTitle.text;
                   newHabit.color = _addEditHabitModel.selectedColor;
                   newHabit.requiredDays = _addEditHabitModel.selectedDays;
-                  Provider.of<HomeModel>(context, listen: false)
+                  newHabit.notiTime = _addEditHabitModel.selectedTime;
+                  newHabit.notiToggle = _addEditHabitModel.notiToggle;
+                  // Need id for notifications id
+                  int id = await Provider.of<HomeModel>(context, listen: false)
                       .addNewHabit(newHabit);
+                  newHabit.id = id;
+                  _addEditHabitModel.updateNotifications(newHabit);
                 }
                 _addEditHabitModel.resetSelected();
                 Navigator.of(context).pop();
@@ -129,6 +151,8 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
               UIHelper.verticalSpaceMedium(),
               // Colour select
               const ColorSelect(),
+              UIHelper.verticalSpaceMedium(),
+              const NotiSection(),
               UIHelper.verticalSpaceMedium(),
               // Day select
               const DaysSelect(),

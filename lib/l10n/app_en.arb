@@ -17,6 +17,8 @@
     "color":"Colour",
     "repeatOn":"Repeat on days :",
     "cannotBeChanged":"Cannot be changed later!",
+    "reminderTime":"Reminder time",
+    "enableNoti":"Enable Reminders",
     "settings":"Settings",
     "darkMode":"Dark mode",
     "timesDone":"Times done",

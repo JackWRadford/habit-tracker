@@ -7,6 +7,7 @@ import 'package:habit_tracker/core/providers/iap_model.dart';
 import 'package:habit_tracker/core/providers/settings_model.dart';
 import 'package:habit_tracker/core/services/database_api.dart';
 import 'package:habit_tracker/core/providers/theme_notifier.dart';
+import 'package:habit_tracker/core/services/notification_service.dart';
 import 'package:habit_tracker/core/services/review_service.dart';
 import 'package:habit_tracker/core/services/settings_service.dart';
 
@@ -19,6 +20,7 @@ void initLocator() {
   locator.registerLazySingleton(() => LocalDatabaseApi());
   locator.registerLazySingleton(() => SettingsService());
   locator.registerLazySingleton(() => ReviewService());
+  locator.registerLazySingleton(() => NotificationService());
 
   // View models
   locator.registerFactory(() => ThemeNotifier());

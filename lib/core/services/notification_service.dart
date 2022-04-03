@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:habit_tracker/core/helper/helper_functions.dart';
 import 'package:habit_tracker/core/models/habit.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -96,7 +97,7 @@ class NotificationService {
   /// Used when updaing, notiTime, notiToggle, title, requiredDays, deleting
   Future<void> scheduleHabitNoti(Habit habit) async {
     // Cancel notifications for given habit (incase already scheduled, when updating)
-    await _cancelNotificationWithId(habit.id!);
+    await cancelNotificationWithId(habit.id!);
     // Schedule if toggled on
     if (habit.notiToggle) {
       // Schedule for required days
@@ -157,7 +158,8 @@ class NotificationService {
   }
 
   /// Method to cancel/delete a notification with given id (habitId)
-  Future<void> _cancelNotificationWithId(int id) async {
+  Future<void> cancelNotificationWithId(int id) async {
+    myPrint('canceled notification with id: $id');
     await flutterLocalNotificationsPlugin.cancel(id);
   }
 
