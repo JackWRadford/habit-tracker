@@ -27,9 +27,9 @@ class AddEditHabitModel extends BaseModel {
   /// Repeat on days selected
   List<bool> selectedDays = [true, true, true, true, true, true, true];
 
-  /// Set day at given [index] with [value]
-  void setSelectedDay(int index, bool value) {
-    selectedDays[index] = value;
+  /// Set day at given [index] with the opposite of its current value
+  void setSelectedDay(int index) {
+    selectedDays[index] = !selectedDays[index];
     notifyListeners();
   }
 

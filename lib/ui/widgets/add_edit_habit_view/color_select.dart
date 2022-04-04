@@ -20,7 +20,7 @@ class ColorSelect extends StatelessWidget {
           crossAxisCount: 6,
           childAspectRatio: 1.5),
       itemCount: myColors.length,
-      itemBuilder: (BuildContext ctx, i) => ColorOption(color: myColors[i]),
+      itemBuilder: (BuildContext ctx, i) => _ColorOption(color: myColors[i]),
     );
   }
 }
@@ -28,9 +28,9 @@ class ColorSelect extends StatelessWidget {
 /// Color option list item
 ///
 /// Shows and selected given [color]
-class ColorOption extends StatelessWidget {
+class _ColorOption extends StatelessWidget {
   final Color color;
-  const ColorOption({Key? key, required this.color}) : super(key: key);
+  const _ColorOption({Key? key, required this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class ColorOption extends StatelessWidget {
         margin: const EdgeInsets.all(0),
         color: color,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(largePadding)),
+          borderRadius: BorderRadius.all(Radius.circular(mediumRadius)),
         ),
         child: Center(
           child: (Provider.of<AddEditHabitModel>(context).selectedColor ==
