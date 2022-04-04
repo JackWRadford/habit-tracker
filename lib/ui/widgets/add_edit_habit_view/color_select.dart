@@ -42,7 +42,7 @@ class _ColorOption extends StatelessWidget {
         margin: const EdgeInsets.all(0),
         color: color,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(mediumRadius)),
+          borderRadius: BorderRadius.all(Radius.circular(smallRadius)),
         ),
         child: Center(
           child: (Provider.of<AddEditHabitModel>(context).selectedColor ==

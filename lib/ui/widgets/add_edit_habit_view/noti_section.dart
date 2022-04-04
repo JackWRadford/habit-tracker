@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:habit_tracker/core/enums/settings_pos.dart';
 import 'package:habit_tracker/core/providers/add_edit_habit_model.dart';
 import 'package:habit_tracker/ui/widgets/shared/my_custom_alert_dialog.dart';
+import 'package:habit_tracker/ui/widgets/shared/section_label.dart';
 import 'package:habit_tracker/ui/widgets/shared/section_time_date_picker.dart';
 import 'package:habit_tracker/ui/widgets/shared/section_toggle.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,7 @@ class NotiSection extends StatelessWidget {
         Provider.of<AddEditHabitModel>(context, listen: false);
     return Column(
       children: [
+        SectionLabel(labelText: AppLocalizations.of(context)!.reminders),
         // Notification Toggle
         SectionToggle(
             title: AppLocalizations.of(context)!.enableNoti,

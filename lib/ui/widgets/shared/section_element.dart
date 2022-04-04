@@ -26,17 +26,17 @@ class SectionElement extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: ((pos == SettingsPos.solo) || (pos == SettingsPos.top))
-              ? const Radius.circular(mediumRadius)
+              ? const Radius.circular(smallRadius)
               : const Radius.circular(0),
           topRight: ((pos == SettingsPos.solo) || (pos == SettingsPos.top))
-              ? const Radius.circular(mediumRadius)
+              ? const Radius.circular(smallRadius)
               : const Radius.circular(0),
           bottomLeft: ((pos == SettingsPos.solo) || (pos == SettingsPos.bottom))
-              ? const Radius.circular(mediumRadius)
+              ? const Radius.circular(smallRadius)
               : const Radius.circular(0),
           bottomRight:
               ((pos == SettingsPos.solo) || (pos == SettingsPos.bottom))
-                  ? const Radius.circular(mediumRadius)
+                  ? const Radius.circular(smallRadius)
                   : const Radius.circular(0),
         ),
       ),

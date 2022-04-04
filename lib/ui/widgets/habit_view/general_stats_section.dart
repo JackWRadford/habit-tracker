@@ -32,7 +32,7 @@ class GeneralStatsSection extends StatelessWidget {
                 _StatSection(
                   future: _aModel.getCurrentStreak(habit),
                   label: AppLocalizations.of(context)!.currentStreak,
-                  iconData: CupertinoIcons.flame_fill,
+                  iconData: CupertinoIcons.flame,
                   color: habit.color,
                 ),
                 UIHelper.horizontalSpaceSmall(),
@@ -40,7 +40,7 @@ class GeneralStatsSection extends StatelessWidget {
                   future:
                       Provider.of<AnalyticsModel>(context).getBestStreak(habit),
                   label: AppLocalizations.of(context)!.bestStreak,
-                  iconData: Icons.emoji_events_rounded,
+                  iconData: CupertinoIcons.star,
                   color: habit.color,
                 ),
               ],
@@ -53,14 +53,14 @@ class GeneralStatsSection extends StatelessWidget {
                 _StatSection(
                   future: _aModel.getTimesDone(habit),
                   label: AppLocalizations.of(context)!.timesDone,
-                  iconData: CupertinoIcons.checkmark_alt_circle_fill,
+                  iconData: CupertinoIcons.checkmark_alt,
                   color: habit.color,
                 ),
                 UIHelper.horizontalSpaceSmall(),
                 _StatSection(
                   future: _aModel.getTimesMissed(habit),
                   label: AppLocalizations.of(context)!.timesMissed,
-                  iconData: CupertinoIcons.xmark_circle_fill,
+                  iconData: CupertinoIcons.xmark,
                   color: habit.color,
                 ),
               ],

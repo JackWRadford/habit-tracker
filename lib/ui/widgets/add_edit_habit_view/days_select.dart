@@ -5,7 +5,6 @@ import 'package:habit_tracker/core/enums/settings_pos.dart';
 import 'package:habit_tracker/core/providers/add_edit_habit_model.dart';
 import 'package:habit_tracker/ui/shared/app_text_styles.dart';
 import 'package:habit_tracker/ui/shared/app_ui_sizes.dart';
-import 'package:habit_tracker/ui/shared/app_ui_spacing.dart';
 import 'package:habit_tracker/ui/widgets/shared/section_element.dart';
 import 'package:habit_tracker/ui/widgets/shared/section_label.dart';
 import 'package:provider/provider.dart';

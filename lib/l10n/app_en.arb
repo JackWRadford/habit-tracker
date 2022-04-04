@@ -15,6 +15,7 @@
     "confirmResetDesc":"This habit's data will be lost forever!",
     "title":"Title",
     "color":"Colour",
+    "reminders":"Reminders",
     "repeatOn":"Frequency",
     "cannotBeChanged":"Cannot be changed later!",
     "reminderTime":"Reminder time",

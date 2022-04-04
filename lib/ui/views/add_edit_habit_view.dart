@@ -154,11 +154,11 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
               UIHelper.verticalSpaceMedium(),
               // Colour select
               const ColorSelect(),
-              UIHelper.verticalSpaceMedium(),
               const NotiSection(),
               // Day select
               const DaysSelect(),
-              UIHelper.verticalSpaceMedium(),
+              UIHelper.verticalSpaceLarge(),
+              UIHelper.verticalSpaceLarge(),
             ],
           ),
         ),
