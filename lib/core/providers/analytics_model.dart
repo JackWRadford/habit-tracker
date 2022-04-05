@@ -9,6 +9,25 @@ import 'package:habit_tracker/core/models/heat_col.dart';
 import 'package:habit_tracker/core/providers/base_model.dart';
 import 'package:habit_tracker/core/services/database_api.dart';
 
+// /// Data for screenshots
+// final List<dynamic> _testChartYear = [
+//   [
+//     FlSpot(11, 75),
+//     FlSpot(10, 60),
+//     FlSpot(9, 65),
+//     FlSpot(8, 40),
+//     FlSpot(7, 45),
+//     FlSpot(6, 50),
+//     FlSpot(5, 70),
+//     FlSpot(4, 60),
+//     FlSpot(3, 35),
+//     FlSpot(2, 20),
+//     FlSpot(1, 25),
+//     FlSpot(0, 15)
+//   ],
+//   [5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4]
+// ];
+
 /// View Model for analytics view
 class AnalyticsModel extends BaseModel {
   /// Local database API

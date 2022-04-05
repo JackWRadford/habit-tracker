@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:habit_tracker/core/locator.dart';
 import 'package:habit_tracker/core/models/settings.dart';
 import 'package:habit_tracker/core/services/database_api.dart';
@@ -13,8 +14,10 @@ Future<void> initSettings() async {
 }
 
 class SettingsService {
+  VoidCallback? callBackSettingsModel;
+
   /// Constructor
-  SettingsService();
+  SettingsService({this.callBackSettingsModel});
 
   /// Gets settings from the DB
   getSettings() {
@@ -24,5 +27,7 @@ class SettingsService {
   /// Update settings with (this) settings
   Future<void> updateSettings() async {
     await _api.updateSettings(_settings);
+    // Call callback to update settingsModel
+    if (callBackSettingsModel != null) callBackSettingsModel!();
   }
 }
