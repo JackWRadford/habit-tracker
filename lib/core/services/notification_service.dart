@@ -95,15 +95,25 @@ class NotificationService {
   ///
   /// Used when updaing, notiTime, notiToggle, title, requiredDays, deleting
   Future<void> scheduleHabitNoti(Habit habit) async {
+    // Generate id from habit id [hTd] and weekday [wd] number
+    int _getNotiId(int hId, int wd) {
+      return int.parse('$hId$wd');
+    }
+
     // Cancel notifications for given habit (incase already scheduled, when updating)
-    await cancelNotificationWithId(habit.id!);
+    for (var i = 0; i < 7; i++) {
+      await cancelNotificationWithId(_getNotiId(habit.id!, i));
+    }
     // Schedule if toggled on
     if (habit.notiToggle) {
       // Schedule for required days
       for (var i = 0; i < habit.requiredDays.length; i++) {
         if (habit.requiredDays[i]) {
-          _scheduleNotification(habit.id!, _lastWeekday(habit.notiTime, i + 1),
-              habit.title, 'Let\'s get it done!');
+          _scheduleNotification(
+              _getNotiId(habit.id!, i),
+              _lastWeekday(habit.notiTime, i + 1),
+              habit.title,
+              'Let\'s get it done!');
         }
       }
     }

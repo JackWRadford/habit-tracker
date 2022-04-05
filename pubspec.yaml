@@ -71,15 +71,15 @@ dev_dependencies:
   flutter_lints: ^1.0.0
 
 flutter_icons:
-  image_path: "assets/icon/icon_white_1.png"
+  image_path: "assets/icon/icon_white_2.png"
   android: true
   ios: true
   remove_alpha_ios: true
   adaptive_icon_background: "#FFFFFF"
-  adaptive_icon_foreground: "assets/icon/icon_clear_3.png"
+  adaptive_icon_foreground: "assets/icon/icon_clear_4.png"
 
 flutter_native_splash:
-  image: assets/icon/icon_white_1.png
+  image: assets/icon/icon_white_2.png
   color: "FFFFFF"
 
 # For information on the generic Dart part of this file, see the
