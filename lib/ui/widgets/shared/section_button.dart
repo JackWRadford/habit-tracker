@@ -29,7 +29,6 @@ class SectionButton extends StatelessWidget {
     return SectionElement(
       hasIndent: true,
       pos: pos,
-      transparant: false,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: onPressed,

@@ -8,21 +8,21 @@ class SectionElement extends StatelessWidget {
   final SettingsPos pos; // top:0,middle:1,bottom:2
   final Widget child;
   final bool hasIndent;
-  final bool transparant; // trasparant for textInputs ()
+  final Color? color;
 
   const SectionElement({
     Key? key,
     required this.pos,
     required this.child,
     required this.hasIndent,
-    required this.transparant,
+    this.color,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(0),
-      color: (transparant) ? Colors.transparent : null,
+      color: (color != null) ? color : null,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: ((pos == SettingsPos.solo) || (pos == SettingsPos.top))

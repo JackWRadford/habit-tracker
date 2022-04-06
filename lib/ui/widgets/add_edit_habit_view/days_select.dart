@@ -46,7 +46,6 @@ class DaysSelect extends StatelessWidget {
                         .setSelectedDay(index);
                   },
                   child: SectionElement(
-                    transparant: false,
                     hasIndent: false,
                     pos: (index == 0)
                         ? SettingsPos.top

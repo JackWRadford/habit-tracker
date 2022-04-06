@@ -25,7 +25,6 @@ class SectionToggle extends StatelessWidget {
     return SectionElement(
       hasIndent: false,
       pos: pos,
-      transparant: false,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(
           mediumPadding,

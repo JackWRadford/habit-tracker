@@ -44,7 +44,7 @@ class SectionInput extends StatelessWidget {
     return SectionElement(
       pos: pos,
       hasIndent: false,
-      transparant: true,
+      color: Colors.transparent,
       child: TextFormField(
         onChanged: onChanged,
         onFieldSubmitted: onFieldSubmitted,

@@ -24,7 +24,6 @@ class SectionTimeDatePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return SectionElement(
       pos: pos,
-      transparant: false,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: onTap,
