@@ -31,7 +31,7 @@ class _HabitListItemState extends State<HabitListItem> {
         padding: const EdgeInsets.symmetric(
             vertical: smallPadding, horizontal: mediumPadding),
         child: SizedBox(
-          height: 96,
+          height: 100,
           child: Card(
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(smallRadius))),
@@ -104,7 +104,7 @@ class _HabitListItemState extends State<HabitListItem> {
                     value: widget.habit.last30,
                     backgroundColor: widget.habit.color.withOpacity(0.2),
                     valueColor: AlwaysStoppedAnimation(widget.habit.color),
-                    minHeight: 8,
+                    minHeight: 10,
                   ),
                 ),
               ],

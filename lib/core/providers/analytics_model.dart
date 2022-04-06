@@ -136,7 +136,9 @@ class AnalyticsModel extends BaseModel {
       // DateTime 5 weeks ago from d
       DateTime p = DateTime(d.year, d.month, d.day - (7 * numOfWeeks));
       int count = await _api.habitDaysCountForHabit(h.id!, p, d);
-      return (count / requiredDays) * 100;
+      double value = (count / requiredDays) * 100;
+      if (value > 100) value = 100;
+      return value;
     }
 
     List<FlSpot> spots = [];
