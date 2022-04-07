@@ -35,6 +35,7 @@ class DaysSelect extends StatelessWidget {
         SectionLabel(labelText: AppLocalizations.of(context)!.repeatOn),
         Flexible(
           child: ListView.builder(
+              padding: const EdgeInsets.all(0),
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: 7,

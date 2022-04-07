@@ -75,7 +75,7 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
     AddEditHabitModel _addEditHabitModel =
         Provider.of<AddEditHabitModel>(context, listen: false);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
@@ -159,10 +159,10 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
               const NotiSection(),
               // Day select
               const DaysSelect(),
-              UIHelper.verticalSpaceMedium(),
               (widget.habit != null)
                   ? Column(
                       children: [
+                        UIHelper.verticalSpaceLarge(),
                         Resetbtn(habit: widget.habit!),
                         UIHelper.verticalSpaceMedium(),
                         DeleteBtn(habit: widget.habit!),
