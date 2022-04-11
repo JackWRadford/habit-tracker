@@ -5,26 +5,26 @@ import 'package:habit_tracker/core/models/habit.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-//local notifications initialization
+/// Local notifications initialization
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
-///initialize local notifications
+/// Initialize local notifications
 Future<bool?> initLocalNotifications() async {
-  //initialize time zone database
+  // Initialize time zone database
   tz.initializeTimeZones();
 
-  // set current local time zone
+  // Set current local time zone
   tz.setLocalLocation(
     tz.getLocation(
       await FlutterNativeTimezone.getLocalTimezone(),
     ),
   );
 
-  //Android init settings
+  // Android init settings
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('ic_stat_name');
-  //iOS init settings
+  // iOS init settings
   var initializationSettingsIOS = IOSInitializationSettings(
     requestAlertPermission: true,
     requestBadgePermission: true,
@@ -49,10 +49,10 @@ Future<bool?> initLocalNotifications() async {
 class NotificationService {
   /// Method to return if iOS permissions are held
   Future<bool?> notificationPermsHeld() async {
-    //Android init settings
+    // Android init settings
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('ic_stat_name');
-    //iOS init settings
+    // iOS init settings
     var initializationSettingsIOS = IOSInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
@@ -171,7 +171,7 @@ class NotificationService {
     await flutterLocalNotificationsPlugin.cancel(id);
   }
 
-  ///method to get list of all pending notifications
+  /// Method to get list of all pending notifications
   Future<List<PendingNotificationRequest>> getPendingNotifications() async {
     return await flutterLocalNotificationsPlugin.pendingNotificationRequests();
   }
