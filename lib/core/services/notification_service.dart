@@ -95,6 +95,7 @@ class NotificationService {
   ///
   /// Used when updaing, notiTime, notiToggle, title, requiredDays, deleting
   Future<void> scheduleHabitNoti(Habit habit) async {
+    String bodyStr = habit.notiBody;
     // Generate id from habit id [hTd] and weekday [wd] number
     int _getNotiId(int hId, int wd) {
       return int.parse('$hId$wd');
@@ -113,7 +114,7 @@ class NotificationService {
               _getNotiId(habit.id!, i),
               _lastWeekday(habit.notiTime, i + 1),
               habit.title,
-              'Let\'s get it done!');
+              (bodyStr == '') ? 'Let\'s get it done!' : bodyStr);
         }
       }
     }

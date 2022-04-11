@@ -24,6 +24,7 @@ const String _colPos = 'pos';
 const String _colChartPeriod = 'chartPeriod';
 const String _colNotiTime = 'notiTime';
 const String _colNotiToggle = 'notiToggle';
+const String _colNotiBody = 'notiBody';
 
 /// List of all [_tableHabits] columns
 final List<String>? _habitsColumns = [
@@ -42,6 +43,7 @@ final List<String>? _habitsColumns = [
   _colChartPeriod,
   _colNotiTime,
   _colNotiToggle,
+  _colNotiBody,
 ];
 
 // Day table name and columns
@@ -103,6 +105,7 @@ Map<int, String> _migrationScripts = {
   7: 'ALTER TABLE $_tableHabits ADD COLUMN $_colChartPeriod INTEGER',
   8: 'ALTER TABLE $_tableHabits ADD COLUMN $_colNotiTime TEXT',
   9: 'ALTER TABLE $_tableHabits ADD COLUMN $_colNotiToggle INTEGER',
+  10: 'ALTER TABLE $_tableHabits ADD COLUMN $_colNotiBody TEXT',
 };
 
 /// Database instance

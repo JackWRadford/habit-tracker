@@ -2,16 +2,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:habit_tracker/core/enums/settings_pos.dart';
+import 'package:habit_tracker/core/models/habit.dart';
 import 'package:habit_tracker/core/providers/add_edit_habit_model.dart';
 import 'package:habit_tracker/ui/widgets/shared/my_custom_alert_dialog.dart';
+import 'package:habit_tracker/ui/widgets/shared/section_input.dart';
 import 'package:habit_tracker/ui/widgets/shared/section_label.dart';
 import 'package:habit_tracker/ui/widgets/shared/section_time_date_picker.dart';
 import 'package:habit_tracker/ui/widgets/shared/section_toggle.dart';
 import 'package:provider/provider.dart';
 
 /// NotiTime and NotiToggle options
-class NotiSection extends StatelessWidget {
-  const NotiSection({Key? key}) : super(key: key);
+class NotiSection extends StatefulWidget {
+  final Habit? habit;
+  const NotiSection({Key? key, required this.habit}) : super(key: key);
+
+  @override
+  State<NotiSection> createState() => _NotiSectionState();
+}
+
+class _NotiSectionState extends State<NotiSection> {
+  final TextEditingController _controllerBody = TextEditingController();
 
   /// Used to pad strings in [timeStr]
   String _twoDigits(int n) => n.toString().padLeft(2, "0");
@@ -19,6 +29,17 @@ class NotiSection extends StatelessWidget {
   /// Format time into hh:mm
   String timeStr(DateTime time) {
     return '${_twoDigits(time.hour)}:${_twoDigits(time.minute)}';
+  }
+
+  @override
+  void initState() {
+    // Set noti body if habit is not null
+    if (widget.habit != null) {
+      if (widget.habit!.notiBody.isNotEmpty) {
+        _controllerBody.text = widget.habit!.notiBody;
+      }
+    }
+    super.initState();
   }
 
   @override
@@ -40,7 +61,7 @@ class NotiSection extends StatelessWidget {
         // Notificaiton Time selected
         SectionTimeDatePicker(
           label: AppLocalizations.of(context)!.reminderTime,
-          pos: SettingsPos.bottom,
+          pos: SettingsPos.middle,
           onTap: () {
             showDialog(
               context: context,
@@ -67,6 +88,22 @@ class NotiSection extends StatelessWidget {
           },
           value: timeStr(Provider.of<AddEditHabitModel>(context).selectedTime),
         ),
+        // Notification body input
+        SectionInput(
+            pos: SettingsPos.bottom,
+            textEditingController: _controllerBody,
+            maxLength: null,
+            maxLines: 1,
+            suffix: null,
+            hintText: 'Notification message',
+            textInputType: TextInputType.text,
+            validator: (value) {},
+            onSaved: (value) {},
+            onChanged: (value) {
+              // Update value
+              _addEditModel.notiBody = value as String;
+            },
+            textAlign: TextAlign.left),
       ],
     );
   }

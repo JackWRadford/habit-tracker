@@ -68,6 +68,7 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
     h.requiredDays = _addEditHabitModel.selectedDays;
     h.notiTime = _addEditHabitModel.selectedTime;
     h.notiToggle = _addEditHabitModel.notiToggle;
+    h.notiBody = _addEditHabitModel.notiBody;
   }
 
   @override
@@ -156,7 +157,7 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
               UIHelper.verticalSpaceMedium(),
               // Colour select
               const ColorSelect(),
-              const NotiSection(),
+              NotiSection(habit: widget.habit),
               // Day select
               const DaysSelect(),
               (widget.habit != null)

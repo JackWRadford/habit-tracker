@@ -21,6 +21,9 @@ class AddEditHabitModel extends BaseModel {
 
   bool notiToggle = false;
 
+  /// Notification body text
+  String notiBody = '';
+
   /// Color currently selected
   Color selectedColor = myRed;
 
