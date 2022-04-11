@@ -95,7 +95,7 @@ class _NotiSectionState extends State<NotiSection> {
             maxLength: null,
             maxLines: 1,
             suffix: null,
-            hintText: 'Notification message',
+            hintText: AppLocalizations.of(context)!.notiMessage,
             textInputType: TextInputType.text,
             validator: (value) {},
             onSaved: (value) {},

@@ -20,6 +20,8 @@
     "cannotBeChanged":"Cannot be changed later!",
     "reminderTime":"Reminder time",
     "enableNoti":"Enable Reminders",
+    "notiMessage":"Notification message",
+    "defaultNotiMessage":"Let's get it done!",
     "settings":"Settings",
     "darkMode":"Dark mode",
     "timesDone":"Times done",

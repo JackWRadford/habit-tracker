@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:habit_tracker/core/models/habit.dart';
@@ -94,7 +95,7 @@ class NotificationService {
   /// Schedule reacurring notifications for given [habit]'s requiredDays
   ///
   /// Used when updaing, notiTime, notiToggle, title, requiredDays, deleting
-  Future<void> scheduleHabitNoti(Habit habit) async {
+  Future<void> scheduleHabitNoti(Habit habit, BuildContext ctx) async {
     String bodyStr = habit.notiBody;
     // Generate id from habit id [hTd] and weekday [wd] number
     int _getNotiId(int hId, int wd) {
@@ -114,7 +115,9 @@ class NotificationService {
               _getNotiId(habit.id!, i),
               _lastWeekday(habit.notiTime, i + 1),
               habit.title,
-              (bodyStr == '') ? 'Let\'s get it done!' : bodyStr);
+              (bodyStr == '')
+                  ? AppLocalizations.of(ctx)!.defaultNotiMessage
+                  : bodyStr);
         }
       }
     }

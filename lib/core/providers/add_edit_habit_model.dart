@@ -69,7 +69,7 @@ class AddEditHabitModel extends BaseModel {
   }
 
   /// Update notifications for [habit]
-  Future<void> updateNotifications(Habit habit) async {
-    _notificationService.scheduleHabitNoti(habit);
+  Future<void> updateNotifications(Habit habit, BuildContext ctx) async {
+    _notificationService.scheduleHabitNoti(habit, ctx);
   }
 }

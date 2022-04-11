@@ -109,7 +109,8 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
                   _setHabitParams(widget.habit!);
                   Provider.of<HomeModel>(context, listen: false)
                       .updateHabit(widget.habit!);
-                  _addEditHabitModel.updateNotifications(widget.habit!);
+                  _addEditHabitModel.updateNotifications(
+                      widget.habit!, context);
                 } else {
                   // Create new habit
                   Habit newHabit = Habit();
@@ -118,7 +119,7 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
                   int id = await Provider.of<HomeModel>(context, listen: false)
                       .addNewHabit(newHabit);
                   newHabit.id = id;
-                  _addEditHabitModel.updateNotifications(newHabit);
+                  _addEditHabitModel.updateNotifications(newHabit, context);
                 }
                 _addEditHabitModel.resetSelected();
                 Navigator.of(context).pop();
