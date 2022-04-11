@@ -61,7 +61,7 @@ class HomeModel extends BaseModel {
     }
   }
 
-  /// Update given habit day (delete row if settings as not done)
+  /// Update given habit day (delete row if set as not done)
   Future<void> updateHabitDay(HabitDay habitDay) async {
     if (habitDay.isDone) {
       await _api.insertHabitDay(habitDay);
