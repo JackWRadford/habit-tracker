@@ -43,13 +43,19 @@ class AnalyticsModel extends BaseModel {
   /// Get the total times missed for the given [habit]
   ///
   /// Calculates the times required from the first done
-  /// If not habitDays yet, return 0
+  /// If no habitDays yet, return 0
   Future<int> getTimesMissed(Habit habit) async {
+    DateTime today = getToday();
     int count = 0;
     DateTime? oldest = await _api.oldestDateOfHabitDay(habit.id!);
     if (oldest != null) {
-      count = _getTimesRequiedBetween(habit, oldest, getToday()) -
-          (await getTimesDone(habit));
+      int req = _getTimesRequiedBetween(habit, oldest, today);
+      int done = (await getTimesDone(habit));
+      // If done today, decrement done by one
+      if (await _api.isDayForHabit(habit.id!, today)) {
+        done--;
+      }
+      count = req - done;
       // Set to 0 if done more times than required
       if (count < 0) count = 0;
     }
