@@ -34,19 +34,20 @@ class _AddEditHabitViewState extends State<AddEditHabitView> {
   void initState() {
     // Set initial values of the current habit for editing if habit is non-null
     if (widget.habit != null) {
+      AddEditHabitModel _addEditHabitModel =
+          Provider.of<AddEditHabitModel>(context, listen: false);
       // Title
       _controllerTitle.text = widget.habit!.title;
       // Color
-      Provider.of<AddEditHabitModel>(context, listen: false).selectedColor =
-          widget.habit!.color;
+      _addEditHabitModel.selectedColor = widget.habit!.color;
       // Days
-      Provider.of<AddEditHabitModel>(context, listen: false).selectedDays =
-          widget.habit!.requiredDays;
-      // Notifications
-      Provider.of<AddEditHabitModel>(context, listen: false).selectedTime =
-          widget.habit!.notiTime;
-      Provider.of<AddEditHabitModel>(context, listen: false).notiToggle =
-          widget.habit!.notiToggle;
+      _addEditHabitModel.selectedDays = widget.habit!.requiredDays;
+      // Notification time
+      _addEditHabitModel.selectedTime = widget.habit!.notiTime;
+      // Notification toggle
+      _addEditHabitModel.notiToggle = widget.habit!.notiToggle;
+      // Notification body
+      _addEditHabitModel.notiBody = widget.habit!.notiBody;
     }
     super.initState();
   }

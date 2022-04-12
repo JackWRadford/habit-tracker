@@ -49,6 +49,7 @@ class AddEditHabitModel extends BaseModel {
     selectedTime = _defaultTime;
     currentTime = _defaultTime;
     notiToggle = false;
+    notiBody = '';
   }
 
   /// Set selected time to current time
