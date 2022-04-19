@@ -9,6 +9,7 @@ import 'package:habit_tracker/ui/shared/app_ui_spacing.dart';
 import 'package:habit_tracker/ui/widgets/habit_view/chart_section.dart';
 import 'package:habit_tracker/ui/widgets/habit_view/general_stats_section.dart';
 import 'package:habit_tracker/ui/widgets/habit_view/heatmap/heat_map_section.dart';
+import 'package:habit_tracker/ui/widgets/habit_view/notes_section.dart';
 import 'package:provider/provider.dart';
 
 class HabitView extends StatefulWidget {
@@ -32,7 +33,7 @@ class _HabitViewState extends State<HabitView> {
   Widget build(BuildContext context) {
     Habit h = Provider.of<HomeModel>(context).selectedHabit;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         // backgroundColor: Provider.of<ThemeNotifier>(context).getCardColor(),
         centerTitle: true,
@@ -64,6 +65,9 @@ class _HabitViewState extends State<HabitView> {
               UIHelper.verticalSpaceMedium(),
               // Last year heatmap
               HeatMapSection(h: h),
+              UIHelper.verticalSpaceMedium(),
+              // Notes
+              NotesSection(habit: h),
               UIHelper.verticalSpaceLarge(),
               UIHelper.verticalSpaceLarge(),
             ],

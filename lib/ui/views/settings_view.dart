@@ -72,12 +72,12 @@ class SettingsView extends StatelessWidget {
 
               /// APP SECTION
               SectionLabel(labelText: AppLocalizations.of(context)!.app),
-              //send feedback
+              // Send feedback
               SectionButton(
                 onPressed: () async {
                   const String urlString =
                       'mailto:jackradfordapps@hotmail.com?subject=&body=';
-                  //try to open email
+                  // Try to open email
                   if (await canLaunch(urlString)) {
                     await launch(urlString);
                   } else {
@@ -146,7 +146,7 @@ class SettingsView extends StatelessWidget {
                 onPressed: () async {
                   const String urlString =
                       'https://jackwradford.com/#/habittracker/privacy';
-                  //try to open external link to privacy policy
+                  // Try to open external link to privacy policy
                   if (await canLaunch(urlString)) {
                     await launch(urlString);
                   } else {
@@ -165,7 +165,7 @@ class SettingsView extends StatelessWidget {
               /// VERSION
               UIHelper.verticalSpaceMedium(),
               Text(
-                '1.0.0 (8)',
+                '1.0.0 (9)',
                 style: textCaption2.copyWith(
                   color: myGrey,
                 ),

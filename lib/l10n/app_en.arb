@@ -33,6 +33,8 @@
     "month":"Last month",
     "week":"Last week",
     "heatmap":"Heatmap",
+    "notes":"Notes",
+    "notesHint":"Write notes here!",
     "required":"Required",
     "noHabits":"No habits",
     "monday":"Monday",

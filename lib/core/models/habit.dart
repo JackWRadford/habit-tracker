@@ -15,6 +15,7 @@ class Habit {
   DateTime notiTime = DateTime(2022, 3, 1, 12, 0); // Only time is used
   bool notiToggle = false;
   String notiBody = '';
+  String notes = '';
 
   /// List of last 7 habitDays
   List<HabitDay> lastWeek = [];
@@ -42,6 +43,7 @@ class Habit {
       'notiTime': notiTime.toIso8601String(),
       'notiToggle': (notiToggle) ? 1 : 0,
       'notiBody': notiBody,
+      'notes': notes,
     };
   }
 
@@ -67,6 +69,7 @@ class Habit {
         : DateTime(2022, 3, 1, 12, 0);
     notiToggle = (map['notiToggle'] == 1);
     notiBody = (map['notiBody'] != null) ? map['notiBody'] : '';
+    notes = (map['notes'] != null) ? map['notes'] : '';
   }
 
   /// Convert from color [c] to int
