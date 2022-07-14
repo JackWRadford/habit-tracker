@@ -75,7 +75,7 @@ class HomeModel extends BaseModel {
   Future<void> deleteHabit(int id) async {
     await _api.deleteHabit(id);
     // Cancel it's notifications
-    _notificationService.cancelNotificationWithId(id);
+    await _notificationService.cancelNotificationWithId(id);
     notifyListeners();
   }
 

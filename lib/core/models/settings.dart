@@ -6,6 +6,7 @@ class Settings {
   bool isDark = false;
   bool isPro = false;
   Locale? locale;
+  bool disableAllNoti = false;
 
   Settings();
 
@@ -15,6 +16,7 @@ class Settings {
       'isDark': (isDark) ? 1 : 0,
       'isPro': (isPro) ? 1 : 0,
       'locale': locale.toString(),
+      'disableAllNoti': (disableAllNoti) ? 1 : 0,
     };
   }
 
@@ -24,6 +26,7 @@ class Settings {
     isDark = (map['isDark'] == 1);
     isPro = (map['isPro'] == 1);
     locale = _stringToLocale(map['locale']);
+    disableAllNoti = (map['disableAllNoti'] == 1);
   }
 
   /// Convert from string to locale

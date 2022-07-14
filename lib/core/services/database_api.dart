@@ -61,13 +61,15 @@ const String _tableSettings = 'Settings';
 const String _colIsDark = 'isDark';
 const String _colIsPro = 'isPro';
 const String _colLocale = 'locale';
+const String _colDisableAllNoti = 'disableAllNoti';
 
 /// List of all [_tableSettings] columns
 final List<String>? _settingsColumns = [
   _colId,
   _colIsDark,
   _colIsPro,
-  _colLocale
+  _colLocale,
+  _colDisableAllNoti
 ];
 
 /// Map of db version to scripts for migration control
@@ -109,6 +111,7 @@ Map<int, String> _migrationScripts = {
   9: 'ALTER TABLE $_tableHabits ADD COLUMN $_colNotiToggle INTEGER',
   10: 'ALTER TABLE $_tableHabits ADD COLUMN $_colNotiBody TEXT',
   11: 'ALTER TABLE $_tableHabits ADD COLUMN $_colNotes TEXT',
+  12: 'ALTER TABLE $_tableSettings ADD COLUMN $_colDisableAllNoti INTEGER'
 };
 
 /// Database instance
