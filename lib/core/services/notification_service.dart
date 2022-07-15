@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:habit_tracker/core/locator.dart';
 import 'package:habit_tracker/core/models/habit.dart';
+import 'package:habit_tracker/core/services/database_api.dart';
+import 'package:habit_tracker/core/services/settings_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -48,6 +51,12 @@ Future<bool?> initLocalNotifications() async {
 }
 
 class NotificationService {
+  // Database service instance
+  final LocalDatabaseApi _api = locator<LocalDatabaseApi>();
+
+  /// Settings service
+  final SettingsService _settingsService = locator<SettingsService>();
+
   /// Method to return if iOS permissions are held
   Future<bool?> notificationPermsHeld() async {
     // Android init settings
@@ -92,20 +101,38 @@ class NotificationService {
     return dt;
   }
 
+  // Generate id from habit id [hId] and weekday [wd] number
+  int _getNotiId(int hId, int wd) {
+    return int.parse('$hId$wd');
+  }
+
+  /// Toggle disableAllNoti (toggle on/off)
+  Future<void> disableAllNoti(bool value, BuildContext ctx) async {
+    // if toggle is on (this notifications are disabled)
+    if (value) {
+      // Cancel all notifications
+      await _cancelAllNotifications();
+    } else {
+      // Schedule all notifications
+      var allHabits = await _api.getAllHabits();
+      for (var habit in allHabits) {
+        await scheduleHabitNoti(habit, ctx);
+      }
+    }
+  }
+
   /// Schedule reacurring notifications for given [habit]'s requiredDays
   ///
   /// Used when updaing, notiTime, notiToggle, title, requiredDays, deleting
   Future<void> scheduleHabitNoti(Habit habit, BuildContext ctx) async {
+    // If settings are disabled, don't schedule new ones
+    if (_settingsService.getSettings().disableAllNoti) return;
+
     String bodyStr = habit.notiBody;
-    // Generate id from habit id [hTd] and weekday [wd] number
-    int _getNotiId(int hId, int wd) {
-      return int.parse('$hId$wd');
-    }
 
     // Cancel notifications for given habit (incase already scheduled, when updating)
-    for (var i = 0; i < 7; i++) {
-      await cancelNotificationWithId(_getNotiId(habit.id!, i));
-    }
+    await cancelNotificationWithId(habit.id!);
+
     // Schedule if toggled on
     if (habit.notiToggle) {
       // Schedule for required days
@@ -170,9 +197,16 @@ class NotificationService {
     );
   }
 
+  /// Method to cancel/delete all notifications
+  Future<void> _cancelAllNotifications() async {
+    await flutterLocalNotificationsPlugin.cancelAll();
+  }
+
   /// Method to cancel/delete a notification with given id (habitId)
   Future<void> cancelNotificationWithId(int id) async {
-    await flutterLocalNotificationsPlugin.cancel(id);
+    for (var i = 0; i < 7; i++) {
+      await flutterLocalNotificationsPlugin.cancel(_getNotiId(id, i));
+    }
   }
 
   /// Method to get list of all pending notifications

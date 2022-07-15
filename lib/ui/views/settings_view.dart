@@ -66,8 +66,17 @@ class SettingsView extends StatelessWidget {
                     );
                   }
                 },
-                pos: SettingsPos.solo,
+                pos: SettingsPos.top,
                 value: Provider.of<ThemeNotifier>(context).getIsDarkMode(),
+              ),
+              SectionToggle(
+                title: AppLocalizations.of(context)!.disableAllNoti,
+                onChanged: (value)  {
+                   Provider.of<SettingsModel>(context, listen: false)
+                      .setDisableAllNoti(value, context);
+                },
+                pos: SettingsPos.bottom,
+                value: Provider.of<SettingsModel>(context).getDisableAllNoti(),
               ),
 
               /// APP SECTION
@@ -165,7 +174,7 @@ class SettingsView extends StatelessWidget {
               /// VERSION
               UIHelper.verticalSpaceMedium(),
               Text(
-                '1.0.0 (9)',
+                '1.0.1 (10)',
                 style: textCaption2.copyWith(
                   color: myGrey,
                 ),
